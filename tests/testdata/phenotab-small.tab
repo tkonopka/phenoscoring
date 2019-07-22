@@ -1,0 +1,13 @@
+Source	Disease_number	Disease_title	V4	Phenotype	Reference	V7	V8	Frequency	Date
+DISEASE	1	disease one		X:001	DISEASE:1	IEA	.	.	2018-09-26
+DISEASE	1	disease one		X:002	DISEASE:1	IEA	.	.	2018-09-26
+DISEASE	1	disease one		X:003	DISEASE:1	IEA	.	.	2018-09-26
+DISEASE	2	disease two		X:001	DISEASE:2	IEA	.	.	2018-09-26
+DISEASE	2	disease two		X:002	DISEASE:2	IEA	.	.	2018-09-26
+DISEASE	2	disease two		X:003	DISEASE:2	IEA	.	.	2018-09-26
+DISEASE	3	disease three		X:001	DISEASE:3	IEA	.	.	2018-09-26
+DISEASE	3	disease three		X:002	DISEASE:3	IEA	.	.	2018-09-26
+DISEASE	3	disease three		X:007	DISEASE:3	IEA	.	.	2018-09-26
+DISEASE	4	disease four		X:003	DISEASE:4	IEA	.	HP:0040283	2018-09-26
+DISEASE	4	disease four		X:999	DISEASE:4	IEA	.	.	2018-09-26
+SKIP	0	skip disease		X:001	SKIP:0	IEA	.	.	2018-09-26

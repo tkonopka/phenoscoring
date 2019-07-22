@@ -1,0 +1,5 @@
+parameter_name,strain_accession_id,status,marker_accession_id,allele_accession_id,p_value,marker_symbol,zygosity,mp_term_id,strain_name,allele_symbol,significant,phenotype_sex
+Y3,S:1,Success,MA:010,AA:010,0.35,Hij,homozygote,Y:003,S:mouse1,Hij<aKO>,true,female
+Y1,S:2,Success,MA:011,AA:011,1e-7,Klm,homozygote,Y:001,S:mouse2,Klm<aKO>,true,female
+Y2,S:1,Success,MA:010,AA:010,0.002,Hij,homozygote,Y:002,S:mouse1,Hij<aKO>,true,female
+Y2,S:1,Success,MA:011,AA:011,NA,Klm,homozygote,Y:002,S:mouse2,Klm<aKO>,false,female

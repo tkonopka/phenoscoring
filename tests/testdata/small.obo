@@ -1,0 +1,106 @@
+format-version: 1.2
+data-version: releases/2018-02-06
+date: 06:02:2018 13:00
+subsetdef: hello "hello"
+default-namespace: small_ontology
+remark: This small ontology contains just a few terms (copied from public domain DOID) and is suitable for testing software.
+ontology: small
+
+[Term]
+id: DOID:4
+name: disease
+def: "A disease is a disposition (i) to undergo pathological processes that (ii) exists in an organism because of one or more disorders in that organism." [url:http\://ontology.buffalo.edu/medo/Disease_and_Diagnosis.pdf]
+xref: MESH:D004194
+xref: NCI:C2991
+xref: SNOMEDCT_US_2016_03_01:64572001
+xref: UMLS_CUI:C0012634
+
+[Term]
+id: DOID:3653
+name: laboratory infectious disease
+synonym: "laboratory infection" EXACT [CSP2005:2119-8616]
+is_obsolete: true
+
+[Term]
+id: DOID:0014667
+name: disease of metabolism
+def: "A disease that involving errors in metabolic processes of building or degradation of molecules." [url:http\://www.ncbi.nlm.nih.gov/books/NBK22259/]
+subset: DO_AGR_slim
+subset: NCIthesaurus
+synonym: "metabolic disease " EXACT [SNOMEDCT_2005_07_31:75934005]
+xref: ICD10CM:E88.9
+xref: ICD9CM:277.9
+xref: MESH:D008659
+xref: NCI:C3235
+xref: SNOMEDCT_US_2016_03_01:154733004
+xref: SNOMEDCT_US_2016_03_01:190961002
+xref: SNOMEDCT_US_2016_03_01:267456000
+xref: SNOMEDCT_US_2016_03_01:30390004
+xref: SNOMEDCT_US_2016_03_01:75934005
+xref: UMLS_CUI:C0025517
+is_a: DOID:4 ! disease
+
+[Term]
+id: DOID:0080015
+name: physical disorder
+def: "A disease that has_material_basis_in a genetic abnormality, error with embryonic development, infection or compromised intrauterine environment." [url:http\://en.wikipedia.org/wiki/Congenital_disorder]
+subset: DO_MGI_slim
+is_a: DOID:4 ! disease
+
+[Term]
+id: DOID:11044
+name: gastroschisis
+comment: OMIM mapping confirmed by DO. [SN].
+xref: ICD10CM:Q79.3
+xref: ICD9CM:756.73
+xref: MESH:D020139
+xref: NCI:C84725
+xref: OMIM:230750
+xref: SNOMEDCT_US_2016_03_01:72951007
+xref: UMLS_CUI:C0265706
+is_a: DOID:0080015 ! physical disorder
+is_a: DOID:4 | disease (this is a shortcut to root for testing purposes)
+
+[Term]
+id: DOID:655
+name: inherited metabolic disorder
+def: "A disease of metabolism that is characterized by enzyme deficiency or accumulation of enzymes or toxins which interfere with normal function due to inherited enzyme abnormality." [url:http\://en.wikipedia.org/wiki/Inborn_errors_of_metabolism, url:http\://www.ncbi.nlm.nih.gov/mesh/68008659]
+subset: DO_MGI_slim
+synonym: "Inborn Errors of Metabolism" EXACT [NCI2004_11_17:C34816]
+synonym: "inborn metabolism disorder" EXACT [CSP2005:1849-0057]
+synonym: "Metabolic hereditary disorder" EXACT [SNOMEDCT_2005_07_31:363205007]
+xref: MESH:D008661
+xref: NCI:C34816
+xref: SNOMEDCT_US_2016_03_01:363205007
+xref: SNOMEDCT_US_2016_03_01:86095007
+xref: UMLS_CUI:C0025521
+is_a: DOID:0014667 ! disease of metabolism
+
+[Term]
+id: DOID:0060158
+name: acquired metabolic disease
+def: "A disease of metabolism that has _material_basis_in enzyme deficiency or accumulation of enzymes or toxins which interfere with normal function due to an endocrine organ disease, organ malfunction, inadequate intake, dietary deficiency, or malabsorption." [url:http\://en.wikipedia.org/wiki/Inborn_error_of_metabolism, url:http\://www.ncbi.nlm.nih.gov/mesh/68008659]
+subset: DO_MGI_slim
+is_a: DOID:0014667 ! disease of metabolism
+created_by: lschriml
+creation_date: 2011-08-24T02:53:03Z
+
+[Term]
+id: DOID:3650
+name: lactic acidosis
+def: "An acquired metabolic disease that has_material_basis_in low pH in body tissues and blood accompanied by the buildup of lactate especially D-lactate." [url:http\://en.wikipedia.org/wiki/Lactic_acidosis]
+xref: ICD10CM:E87.2
+xref: MESH:D000140
+xref: NCI:C98969
+xref: SNOMEDCT_US_2016_03_01:91273001
+xref: UMLS_CUI:C0001125
+is_a: DOID:0060158 ! acquired metabolic disease
+
+[Typedef]
+id: is_a
+name: is_a
+
+[Typedef]
+id: part_of
+name: part_of
+

@@ -1,0 +1,77 @@
+format-version: 1.2
+data-version: releases/2018-02-20
+date: 20:02:2018 13:00
+subsetdef: hello "hello"
+default-namespace: Y_ontology
+remark: This small ontology contains just a few terms and is suitable for testing software. This has intermediate terms between Y:003 and Y:001.
+ontology: Y
+
+[Term]
+id: Y:004
+name: root
+def: "root of Y ontology." [url]
+
+[Term]
+id: Y:003
+name: first child
+def: "An intermediate node." [url]
+is_a: Y:004
+
+[Term]
+id: Y:002
+name: subchild A
+def: "A child with a sibling, A." [url]
+is_a: Y:003
+
+[Term]
+id: Y:800
+name: intermediate between Y:003 and Y:001
+def: "An intermediate node." [url]
+is_a: Y:003
+
+[Term]
+id: Y:801
+name: intermediate between Y:003 and Y:001
+def: "An intermediate node." [url]
+is_a: Y:800
+
+[Term]
+id: Y:802
+name: intermediate between Y:003 and Y:001
+def: "An intermediate node." [url]
+is_a: Y:801
+
+[Term]
+id: Y:001
+name: subchild B
+def: "A child with a sibling, B." [url]
+is_a: Y:802
+
+[Term]
+id: Y:005
+name: second child
+def: "An intermediate node." [url]
+is_a: Y:004
+
+[Term]
+id: Y:006
+name: subchild of second
+def: ""
+is_a: Y:005
+
+[Term]
+id: Y:007
+name: 3rd level
+def: ""
+is_a: Y:002
+
+[Term]
+id: Y:008
+name: 4th level
+def: ""
+is_a: Y:007
+
+[Typedef]
+id: is_a
+name: is_a
+

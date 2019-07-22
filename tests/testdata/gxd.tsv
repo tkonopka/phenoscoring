@@ -1,0 +1,8 @@
+assayType	feature.primaryIdentifier	strength	structure.identifier
+RT-PCR	MA:010	Strong	EMAPA:1
+RT-PCR	MA:011	Present	EMAPA:1
+RT-PCR	MA:010	Not Specified	EMAPA:2
+RT-PCR	MA:011	Absent	EMAPA:3
+A1	MA:009	Present	EMAPA:3
+A2	MA:009	Present	EMAPA:3
+A3	MA:009	Absent	EMAPA:3

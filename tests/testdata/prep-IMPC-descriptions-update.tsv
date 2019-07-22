@@ -1,0 +1,3 @@
+id	category	marker_id	marker_symbol	description
+pIMPC_MA:010_hom	marker2	MA:010	Hij	{"allele_id": "AA:010", "allele_symbol": "Hij<aKO>", "background": "UPDATED", "zygosity": "hom"}
+pIMPC_AA:010_hom	allele2	MA:010	Hij	{"allele_id": "AA:010", "allele_symbol": "Hij<aKO>", "background": "UPDATED", "zygosity": "hom"}

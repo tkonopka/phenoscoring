@@ -1,0 +1,7 @@
+id	category	marker_id	marker_symbol	description
+MGI_MA:001_hom	marker	MA:001		{"allele_id": "AI:001", "allele_symbol": "Abc<aKO>", "background": "involves: test", "zygosity": "hom"}
+MGI_AI:001_hom	allele	MA:001		{"allele_id": "AI:001", "allele_symbol": "Abc<aKO>", "background": "involves: test", "zygosity": "hom"}
+MGI_GA:100_hom	genotype	MA:001		{"allele_id": "AI:001", "allele_symbol": "Abc<aKO>", "background": "involves: test", "zygosity": "hom"}
+MGI_MA:001_het	marker	MA:001		{"allele_id": "AI:001", "allele_symbol": "Abc<aKO>", "background": "involves: test", "zygosity": "het"}
+MGI_AI:001_het	allele	MA:001		{"allele_id": "AI:001", "allele_symbol": "Abc<aKO>", "background": "involves: test", "zygosity": "het"}
+MGI_GA:101_het	genotype	MA:001		{"allele_id": "AI:001", "allele_symbol": "Abc<aKO>", "background": "involves: test", "zygosity": "het"}

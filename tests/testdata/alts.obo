@@ -1,0 +1,22 @@
+format-version: 1.2
+default-namespace: small_ontology
+remark: This small ontology contains just a few terms, including terms with alternate ids
+ontology: small
+
+[Term]
+id: AA:1
+name: root
+def: "root"
+
+[Term]
+id: AA:2
+name: child
+alt_id: AA:02
+is_a: AA:1
+
+[Term]
+id: AA:3
+name: another child
+alt_id: AA:03
+alt_id: AA:003
+is_a: AA:1

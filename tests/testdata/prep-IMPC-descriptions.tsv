@@ -1,0 +1,9 @@
+id	category	marker_id	marker_symbol	description
+pIMPC_MA:010_hom	marker	MA:010	Hij	{"allele_id": "AA:010", "allele_symbol": "Hij<aKO>", "background": "S:mouse1", "zygosity": "hom", "sex": "U"}
+pIMPC_AA:010_hom	allele	MA:010	Hij	{"allele_id": "AA:010", "allele_symbol": "Hij<aKO>", "background": "S:mouse1", "zygosity": "hom", "sex": "U"}
+IMPC_MA:010_hom	marker_wneg	MA:010	Hij	{"allele_id": "AA:010", "allele_symbol": "Hij<aKO>", "background": "S:mouse1", "zygosity": "hom", "sex": "U"}
+IMPC_AA:010_hom	allele_wneg	MA:010	Hij	{"allele_id": "AA:010", "allele_symbol": "Hij<aKO>", "background": "S:mouse1", "zygosity": "hom", "sex": "U"}
+pIMPC_MA:011_hom	marker	MA:011	Klm	{"allele_id": "AA:011", "allele_symbol": "Klm<aKO>", "background": "S:mouse2", "zygosity": "hom", "sex": "U"}
+pIMPC_AA:011_hom	allele	MA:011	Klm	{"allele_id": "AA:011", "allele_symbol": "Klm<aKO>", "background": "S:mouse2", "zygosity": "hom", "sex": "U"}
+IMPC_MA:011_hom	marker_wneg	MA:011	Klm	{"allele_id": "AA:011", "allele_symbol": "Klm<aKO>", "background": "S:mouse2", "zygosity": "hom", "sex": "U"}
+IMPC_AA:011_hom	allele_wneg	MA:011	Klm	{"allele_id": "AA:011", "allele_symbol": "Klm<aKO>", "background": "S:mouse2", "zygosity": "hom", "sex": "U"}

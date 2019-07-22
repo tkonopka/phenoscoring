@@ -1,0 +1,6 @@
+MP_ID	MP_Term	EMAPA_ID	EMAPA_Term
+Y:002	specific mapping 1	EMAPA:1	emap with multiple Y hits
+Y:003	vague mapping	EMAPA:1	emap with multiple Y hits
+Y:001	specific mapping 2	EMAPA:1	emap with multiple Y hits
+Y:006	phenotype 6	EMAPA:2	specific emap 1
+Y:007	phenotype 7	EMAPA:3	specific emap 2

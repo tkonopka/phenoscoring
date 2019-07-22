@@ -1,0 +1,11 @@
+## This is a manul representation of the Y.obo ontology graph
+
+
+Y:004
+|- Y:003
+   |- Y:002 
+      |- Y:007
+        |- Y:008
+   |- Y:001
+|- Y:005
+   |- Y:006

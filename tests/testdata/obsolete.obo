@@ -1,0 +1,40 @@
+format-version: 1.2
+default-namespace: small_ontology
+remark: This small ontology contains just a few terms, including obsolete terms
+ontology: small
+
+[Term]
+id: SMALL:1
+name: small
+def: "Small root."
+
+[Term]
+id: SMALL:2
+name: small, child node
+is_obsolete: true
+
+[Term]
+id: SMALL:3
+name: small, child node
+is_a: SMALL:1
+
+[Term]
+id: SMALL:4
+name: small, another child node
+is_a: SMALL:1
+
+[Term]
+id: SMALL:5
+name: small, another child node, made deprecated
+is_obsolete: true
+replaced_by: SMALL:3
+
+[Term]
+id: SMALL:6
+name: small, another child node, made deprecated
+is_obsolete: true
+replaced_by: SMALL:4
+
+[Typedef]
+id: is_a
+name: is_a

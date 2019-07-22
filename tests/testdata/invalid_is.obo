@@ -1,0 +1,20 @@
+format-version: 1.2
+subsetdef: hello "hello"
+default-namespace: small_ontology
+remark: This small ontology contains just a few terms and contains parsing errors. It is meant only for testing.
+ontology: bad
+
+[Term]
+id: ABC:1
+name: "abc 1"
+
+[Term]
+id: ABC:2
+name: "abc 2"
+is_a: ABC:0
+
+[Typedef]
+id: is_a
+name: is_a
+
+

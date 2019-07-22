@@ -1,0 +1,11 @@
+## This is a manual representation of the small.obo ontology graph
+
+
+DOID:4
+|- DOID:0014667
+   |- DOID:655
+   |- DOID:0060158
+      |- DOID:3650
+|- DOID:0080015
+   |- DOID:11044
+
