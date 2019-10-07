@@ -1,8 +1,7 @@
-"""table definitions for the phenoscoring DB
+"""
+Table definitions for the phenoscoring DB
 
 All classes subclass DBTable and define one table in a sqlite3 database.
-
-@author: Tomasz Konopka
 """
 
 from db.table import DBTable

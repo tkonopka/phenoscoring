@@ -1,8 +1,7 @@
-"""Definition of a phenoscoring analysis object.
+"""
+Definition of a phenoscoring analysis object.
 
 This is a gateway to performing phenoscoring calculations.
-
-@author: Tomasz Konopka
 """
 
 import os

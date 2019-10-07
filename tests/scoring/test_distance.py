@@ -1,6 +1,5 @@
-'''Tests for contents of scoring/distance.py
-
-@author: Tomasz Konopka
+'''
+Tests for contents of scoring/distance.py
 '''
 
 import numpy as np

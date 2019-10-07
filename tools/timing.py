@@ -1,6 +1,5 @@
-"""Helper functions for timing performance
-
-@author: Tomasz Konopka
+"""
+Helper functions for timing performance
 """
 
 from timeit import default_timer as timer

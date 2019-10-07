@@ -1,9 +1,7 @@
-"""Phenojoin.py
+"""
+Phenojoin.py
 
 Joining data from IMPC and MGI into JOINT models
-
-
-@author: Tomasz Konopka
 """
 
 

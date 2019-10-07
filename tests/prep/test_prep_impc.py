@@ -1,6 +1,5 @@
-'''Tests for contents of phenoprep/prep_impc.py
-
-@author: Tomasz Konopka
+'''
+Tests for contents of phenoprep/prep_impc.py
 '''
 
 import unittest

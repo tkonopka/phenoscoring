@@ -1,6 +1,5 @@
-"""Functions to compute phenotype frequencies (priors) from sets of Entities.
-
-@author: Tomasz Konopka
+"""
+Functions to compute phenotype frequencies (priors) from sets of Entities.
 """
    
 from phenoscoring.entity import filter_entities_cat   

@@ -1,6 +1,5 @@
-"""Class holding details of an experiment: hit/non-hit, tpr, fpr
-
-@author: Tomasz Konopka
+"""
+Class holding details of an experiment: hit/non-hit, tpr, fpr
 """
 
 

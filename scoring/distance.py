@@ -1,13 +1,12 @@
-"""Computation of dstiances and neighbors
-
-@author: Tomasz Konopka
+"""
+Computation of distances and neighbors
 """
 
 import numba
 from numpy import sqrt as sqrt
 
 
-@numba.jit
+@numba.njit()
 def vec_norm(a):
     """compute norm of a vector."""
     
@@ -17,7 +16,7 @@ def vec_norm(a):
     return sqrt(result)
 
 
-@numba.jit
+@numba.njit()
 def cosine_distance(a, b, anorm, bnorm):
     """compute cosine distance between a and b.
     
@@ -37,7 +36,7 @@ def cosine_distance(a, b, anorm, bnorm):
     return 1.0 - (result/(anorm*bnorm))
 
 
-@numba.jit
+@numba.njit()
 def cosine_distances(v, mat, mat_norms):
     """compute cosine distances between an array and columns in a matrix.
     
@@ -60,7 +59,7 @@ def cosine_distances(v, mat, mat_norms):
     return result
 
 
-@numba.jit
+@numba.njit()
 def neighbor_average(mat, priors, indexes):
     """compute an average of data in a matrix, weighted by priors."""
     

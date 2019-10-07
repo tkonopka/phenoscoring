@@ -1,6 +1,5 @@
-"""A configuration object for class Phenoscoring()
-
-@author: Tomasz Konopka
+"""
+Configuration object for class Phenoscoring()
 """
 
 from .time import now_timestamp

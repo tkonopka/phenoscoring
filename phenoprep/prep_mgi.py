@@ -1,6 +1,5 @@
-"""Prep data from MGI into a format for Phenoscoring
-
-@author: Tomasz Konopka
+"""
+Prep data from MGI into a format for Phenoscoring
 """
 
 import csv

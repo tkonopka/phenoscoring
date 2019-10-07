@@ -1,8 +1,7 @@
-"""Class that holds a representation of experimental data.
+"""
+Class that holds a representation of experimental data.
 
 This just holds a dict with a phenotype-associated API.
-
-@author: Tomasz Konopka
 """
 
 from math import isclose

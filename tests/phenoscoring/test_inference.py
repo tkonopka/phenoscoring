@@ -1,6 +1,5 @@
-'''Tests for contents of scoring/inference.py
-
-@author: Tomasz Konopka
+'''
+Tests for contents of scoring/inference.py
 '''
 
 

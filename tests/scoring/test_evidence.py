@@ -1,6 +1,5 @@
-'''Tests for contents of scoring/evidence.py
-
-@author: Tomasz Konopka
+'''
+Tests for contents of scoring/evidence.py
 '''
 
 import json

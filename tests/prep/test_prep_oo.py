@@ -1,6 +1,5 @@
-'''Tests for preparing ontology-ontology mappings
-
-@author: Tomasz Konopka
+'''
+Tests for preparing ontology-ontology mappings
 '''
 
 from os.path import join

@@ -1,6 +1,5 @@
-'''Tests for contents of tools/files.py
-
-@author: Tomasz Konopka
+'''
+Tests for contents of tools/files.py
 '''
 
 import unittest

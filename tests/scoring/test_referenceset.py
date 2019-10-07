@@ -1,6 +1,5 @@
-'''Tests for contents of scoring/referenceset.py and referencematrix.py
-
-@author: Tomasz Konopka
+'''
+Tests for contents of scoring/referenceset.py and referencematrix.py
 '''
 
 

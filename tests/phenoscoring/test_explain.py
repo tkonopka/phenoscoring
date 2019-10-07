@@ -1,6 +1,5 @@
-'''Tests for extracting details of scoring calculations.
-
-@author: Tomasz Konopka
+'''
+Tests for extracting details of scoring calculations.
 '''
 
 import json

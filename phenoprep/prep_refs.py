@@ -1,9 +1,8 @@
-"""Prep data from phenotypetab into a format for Phenoscoring
+"""
+Prep data from phenotypetab into a format for Phenoscoring
 
 This module contains several functions which are meant for internal use.
 To use this from outside, see function prep_refs()
-
-@author: Tomasz Konopka
 """
 
 import csv

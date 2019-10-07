@@ -1,6 +1,5 @@
-'''Tests for contents of phenoscoring/phenotypedatum.py
-
-@author: Tomasz Konopka
+'''
+Tests for contents of phenoscoring/phenotypedatum.py
 '''
 
 import unittest

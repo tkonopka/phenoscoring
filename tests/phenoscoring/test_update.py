@@ -1,8 +1,7 @@
-'''Tests for phenoscoring/phenoscoring.py and phenoscoring/update.py
+'''
+Tests for phenoscoring/phenoscoring.py and phenoscoring/update.py
 
 Adding and updatnig models to an existing db
-
-@author: Tomasz Konopka
 '''
 
 

@@ -1,13 +1,12 @@
-"""Parsing ontologies from obo files on disk.
-
-@author: Tomasz Konopka
+"""
+Parsing ontologies from obo files on disk.
 """
 
 import sys
-from obo.oboterm import OboTerm, MinimalOboTerm
+from .oboterm import OboTerm, MinimalOboTerm
 
 
-class MinimalObo():
+class MinimalObo:
     """Representation of an obo ontology with minimal parsing and checking"""
 
     def __init__(self, filepath, infer_children=True):

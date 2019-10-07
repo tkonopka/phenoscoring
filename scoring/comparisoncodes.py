@@ -1,6 +1,5 @@
-"""Class that defines comparison codes, e.g. true positive, etc, 
- 
-@author: Tomasz Konopka
+"""
+Class that defines comparison codes, e.g. true positive, etc, 
 """
 
 

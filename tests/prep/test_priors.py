@@ -1,6 +1,5 @@
-'''Tests for contents of phenoprep/priors.py
-
-@author: Tomasz Konopka
+'''
+Tests for contents of phenoprep/priors.py
 '''
 
 import unittest

@@ -1,6 +1,5 @@
-'''Tests for contents of ontologies/obo.py
-
-@author: Tomasz Konopka
+'''
+Tests for contents of ontologies/obo.py
 '''
 
 from os.path import join

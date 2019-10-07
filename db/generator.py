@@ -1,9 +1,8 @@
-"""Class describing a generator iterating over a single db table.
-
-@author: Tomasz Konopka
+"""
+Class describing a generator iterating over a single db table.
 """
 
-from .db import *
+from .db import get_conn
 from .table import DBTable
 
 
@@ -11,7 +10,7 @@ from .table import DBTable
 ## 
 
 
-class DBGenerator():
+class DBGenerator:
     """Class that retrieves rows from a table."""
     
     def __init__(self, table, logic="AND", where=dict(), fieldnames=None):

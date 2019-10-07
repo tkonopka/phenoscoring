@@ -1,6 +1,5 @@
-"""A simple logger that prints messages, or not if set to quiet
-
-@author: Tomasz Konopka
+"""
+Simple logger that prints messages, or not if set to quiet
 """
 
 from datetime import datetime

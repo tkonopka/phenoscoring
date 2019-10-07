@@ -1,6 +1,5 @@
-'''Tests for counting hits among model scores
-
-@author: Tomasz Konopka
+'''
+Tests for counting hits among model scores
 '''
 
 import unittest

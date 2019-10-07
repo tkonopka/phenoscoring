@@ -1,13 +1,12 @@
-"""Generator over a db table to output data into a csv file
-
-@author: Tomasz Konopka
+"""
+Generator over a db table to output data into a csv file
 """
 
 from .db import get_conn
 from .table import DBTable
 
 
-class DBExporter():
+class DBExporter:
     """Class that retrieves rows from a table."""
     
     def __init__(self, table):
@@ -23,8 +22,8 @@ class DBExporter():
         """Retrieve data and write to an output file.""" 
         
         fieldnames = list(self.table.fieldnames())
-        fields = ", ".join(fieldnames)
-        sql = "SELECT "+ ", ".join(fieldnames)+ " FROM "+self.table.tabname
+        sql_fields = ", ".join(fieldnames)
+        sql = "SELECT " + sql_fields  + " FROM " + self.table.tabname
         
         with get_conn(self.table.dbfile) as conn, open(filename, "w") as f:
             f.writelines("\t".join(fieldnames)+"\n")

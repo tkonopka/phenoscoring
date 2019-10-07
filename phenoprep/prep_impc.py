@@ -1,6 +1,5 @@
-"""Prep data from IMPC into a format for Phenoscoring
-
-@author: Tomasz Konopka
+"""
+Prep data from IMPC into a format for Phenoscoring
 """
 
 import csv

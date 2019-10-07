@@ -1,10 +1,9 @@
-"""Commonly used functions for working with an sqlite3 database. 
-
-@author: Tomasz Konopka
+"""
+Commonly used functions for working with an sqlite3 database. 
 """
 
 import os
-import sqlite3
+from sqlite3 import connect, Row
 
 
 ## ##################################################################
@@ -30,8 +29,8 @@ def setup_db(filepath, tables=[], reset=False):
 def get_conn(dbfile, timeout=5000):
     """Get a connection to the databse"""
         
-    conn = sqlite3.connect(dbfile, timeout=timeout)        
-    conn.row_factory = sqlite3.Row            
+    conn = connect(dbfile, timeout=timeout)        
+    conn.row_factory = Row            
     return conn
 
 

@@ -1,6 +1,5 @@
-'''Tests for contents of scoring/representation.py
-
-@author: Tomasz Konopka
+'''
+Tests for contents of scoring/representation.py
 '''
 
 

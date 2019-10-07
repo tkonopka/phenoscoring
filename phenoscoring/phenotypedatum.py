@@ -1,6 +1,5 @@
-"""A container holding a model for the Phenoscoring DB
-
-@author: Tomasz Konopka
+"""
+Container holding a model for the Phenoscoring DB
 """
 
 from .time import now_timestamp

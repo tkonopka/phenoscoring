@@ -1,5 +1,5 @@
-"""Executing packets, possibly with a multiprocessing pool.
-
+"""
+Executing packets, possibly with a multiprocessing pool.
 """
 
 import multiprocessing as mp

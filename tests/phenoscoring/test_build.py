@@ -1,6 +1,5 @@
-'''Tests for creating database structure and populating data on references.
-
-@author: Tomasz Konopka
+'''
+Tests for creating database structure and populating data on references.
 '''
 
 import unittest

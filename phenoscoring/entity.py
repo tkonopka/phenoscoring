@@ -1,6 +1,5 @@
-"""A container holding an entity with phenotypes for the Phenoscoring DB
-
-@author: Tomasz Konopka
+"""
+Container holding an entity with phenotypes for the Phenoscoring DB
 """
 
 import json

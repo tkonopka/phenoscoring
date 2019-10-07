@@ -1,11 +1,10 @@
-"""Phenoscoring.py
+"""
+Phenoscoring.py
 
 This is the main interface to the Phenoscoring program.
 
 See auxiliary program phenoprep.py to aid in preparing
 inputs from HPO, IMPC, and MGI.
-
-@author: Tomasz Konopka
 """
 
 

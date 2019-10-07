@@ -1,6 +1,5 @@
-'''Tests for contents of phenoscoring/compute.py - computing model scores
-
-@author: Tomasz Konopka
+'''
+Tests for contents of phenoscoring/compute.py - computing model scores
 '''
 
 

@@ -1,6 +1,5 @@
-'''Tests for contents of phenoscoring/entity.py
-
-@author: Tomasz Konopka
+'''
+Tests for contents of phenoscoring/entity.py
 '''
 
 import json

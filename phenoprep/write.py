@@ -1,6 +1,5 @@
-"""Write prepared model description and model phenotype files to disk.
-
-@author: Tomasz Konopka
+"""
+Write prepared model description and model phenotype files to disk.
 """
 
 from tools.files import open_file

@@ -1,8 +1,7 @@
-"""Utilities to extract summaries from obo ontology files.
+"""
+Utilities to extract summaries from obo ontology files.
 
 Usage: python3 obotools.py command --obo INFILE
-
-@author: Tomasz Konopka
 """
 
 

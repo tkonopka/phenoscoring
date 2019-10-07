@@ -1,6 +1,5 @@
-'''Tests for contents of db/db.py, db/dbtable.py
-
-@author: Tomasz Konopka
+'''
+Tests for contents of db/db.py, db/dbtable.py
 '''
 
 

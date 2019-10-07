@@ -1,6 +1,5 @@
-"""Helpers used extracting common components from the phenoscoring db.
-
-@author: Tomasz Konopka
+"""
+Helpers used extracting common components from the phenoscoring db.
 """
 
 from db.generator import DBGenerator

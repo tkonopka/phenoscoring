@@ -1,6 +1,5 @@
-"""Functions used during update of a Phenoscoring database.
-
-@author: Tomasz Konopka
+"""
+Functions used during update of a Phenoscoring database.
 """
 
 import csv

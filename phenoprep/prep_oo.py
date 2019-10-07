@@ -1,6 +1,5 @@
-"""Prep data from owlsim ontology-ontology mapping
-
-@author: Tomasz Konopka
+"""
+Prep data from owlsim ontology-ontology mapping
 """
 
 from tools.files import open_file

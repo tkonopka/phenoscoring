@@ -1,4 +1,5 @@
-"""Utility to download mouse expression data from GXD
+"""
+Utility to download mouse expression data from GXD
 
 Usage: python3 download_GXD.py --ids ids.txt --output out_file
 """

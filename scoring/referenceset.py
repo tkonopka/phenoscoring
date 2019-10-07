@@ -1,9 +1,8 @@
-"""Class that holds a set of reference representations.
+"""
+Class that holds a set of reference representations.
 
 This is essentially a matrix with some additional fields. 
 Adding data into the matrix is through Representation objects.
- 
-@author: Tomasz Konopka
 """
 
 from operator import itemgetter

@@ -1,6 +1,5 @@
-'''Tests for definitions of obo terms
-
-@author: Tomasz Konopka
+'''
+Tests for definitions of obo terms
 '''
 
 

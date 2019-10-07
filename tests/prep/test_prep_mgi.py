@@ -1,6 +1,5 @@
-'''Tests for contents of phenoprep/prep_mgi.py
-
-@author: Tomasz Konopka
+'''
+Tests for contents of phenoprep/prep_mgi.py
 '''
 
 import unittest

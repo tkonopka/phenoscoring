@@ -1,8 +1,7 @@
-""" Class holding a single term defined in an obo file.
+"""
+Class holding a single term defined in an obo file.
 
 This container/parser only supports a few of the data types in an obo term. 
-
-@author: Tomasz Konopka
 """
 
 
@@ -11,7 +10,7 @@ This container/parser only supports a few of the data types in an obo term.
 # To use this, create an object, then add data to it. 
 
 
-class MinimalOboTerm():
+class MinimalOboTerm:
     """A container holding just minimal information on an ontology term"""
 
     def __init__(self):

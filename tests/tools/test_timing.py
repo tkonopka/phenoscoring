@@ -1,6 +1,5 @@
-'''Tests for contents of tools/timing.py
-
-@author: Tomasz Konopka
+'''
+Tests for contents of tools/timing.py
 '''
 
 import unittest

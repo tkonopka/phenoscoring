@@ -1,6 +1,5 @@
-"""Count hits to references
-
-@author: Tomasz Konopka
+"""
+Count hits to references
 """
 
 

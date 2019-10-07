@@ -1,6 +1,5 @@
-"""Helpers used when computing specificity of references.
-
-@author: Tomasz Konopka
+"""
+Helpers used when computing specificity of references.
 """
 
 from .dbtables import ReferenceCompletePhenotypeTable

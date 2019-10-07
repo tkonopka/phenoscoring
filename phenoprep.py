@@ -1,11 +1,10 @@
-"""Phenoprep.py
+"""
+Phenoprep.py
 
 Phenoscoring-prep is a utility that parses certain raw data files and
 prepares data into a format ready to consume by Phenoscoring.py. 
 
 This is an auxiliary program to phenoscoring.py
-
-@author: Tomasz Konopka
 """
 
 

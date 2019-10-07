@@ -1,9 +1,8 @@
-"""Class that holds a matrix, with some additional helper functions.
+"""
+Class that holds a matrix, with some additional helper functions.
 
 This is essentially a matrix with some additional fields. 
 Adding data into the matrix is through Representation objects.
- 
-@author: Tomasz Konopka
 """
 
 
@@ -30,8 +29,9 @@ class ReferenceMatrix():
             if id not in refset.rows:
                 new_features.remove(id)
         
-        # transfer some metadata from refset to this new object
-        self.column_priors = refset.column_priors.copy()
+        # transfer some metadata from refset to this new object        
+        self.column_priors = np.array(refset.column_priors.copy(), 
+                                      dtype=float)
         self.columns = refset.columns.copy()
         self.column_names = refset.column_names.copy()
         
@@ -52,7 +52,7 @@ class ReferenceMatrix():
 
         # pre-compute data column norms
         ncols = len(self.columns)
-        self.data_norms = [0.0] * ncols
+        self.data_norms = np.array([0.0] * ncols, dtype=float)
         for ref_index in range(ncols):
             self.data_norms[ref_index] = vec_norm(self.data[:, ref_index])
 
@@ -93,7 +93,7 @@ class ReferenceMatrix():
     def get_average(self, references):
         """make a dictionary with a neighbor average."""
 
-        neighbors = [self.columns[_] for _ in references]
+        neighbors = np.array([self.columns[_] for _ in references])
         n_features = len(self.rows)
         data = neighbor_average(self.data, self.column_priors, neighbors)
         result = dict.fromkeys(self.row_names, 0.0)

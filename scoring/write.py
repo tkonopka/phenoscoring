@@ -1,6 +1,5 @@
-"""A helper function to write a ReferenceSet to disk
-
-@author: Tomasz Konopka
+"""
+Helper function to write a ReferenceSet to disk
 """
 
 

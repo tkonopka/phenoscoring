@@ -1,8 +1,7 @@
-'''Tests for phenoscoring/phenoscoring.py with action export
+'''
+Tests for phenoscoring/phenoscoring.py with action export
 
 Writing content of db tables to tsv files
-
-@author: Tomasz Konopka
 '''
 
 import unittest

@@ -1,6 +1,5 @@
-"""A class for computing phenosocing scores with the Phenoscoring system.
-
-@author: Tomasz Konopka
+"""
+Class for computing phenosocing scores with the Phenoscoring system.
 """
 
 from math import ceil, floor

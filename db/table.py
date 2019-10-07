@@ -1,16 +1,17 @@
-"""Class describing a single db table.
-
-@author: Tomasz Konopka
+"""
+Class describing a single db table.
 """
 
-from .db import *
+import os
+from .db import get_conn
 
 
 # ##################################################################
 #
 
 class DBTable:
-    """Class designed to be subclassed.
+    """
+    Class designed to be subclassed.
     
     Subclasses should implement a function to transfer data into 
     the self.data list.        

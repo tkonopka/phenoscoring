@@ -1,6 +1,5 @@
-"""use phenotype imputation to prepare augment IMPC models for Phenoscoring
-
-@author: Tomasz Konopka
+"""
+Use phenotype imputation to prepare augment IMPC models for Phenoscoring
 """
 
 import numpy as np

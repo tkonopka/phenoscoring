@@ -1,5 +1,5 @@
-"""Dealing with timestamps for the phenoscoring project.
-
+"""
+Dealing with timestamps for the phenoscoring project.
 """
 
 from datetime import datetime

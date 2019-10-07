@@ -1,12 +1,11 @@
-'''Tests for contents of db/db.py, db/dbtable.py
-
-@author: Tomasz Konopka
+'''
+Tests for contents of db/db.py, db/dbtable.py
 '''
 
 
 import os
 import unittest
-from db.db import setup_db, get_conn 
+from db.db import setup_db
 from db.table import DBTable, DBTableExample
 from ..testhelpers import remove_if_exists
 

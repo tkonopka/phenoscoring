@@ -1,6 +1,5 @@
-"""Helper functions for working with files
-
-@author: Tomasz Konopka
+"""
+Helper functions for working with files
 """
 
 import csv
