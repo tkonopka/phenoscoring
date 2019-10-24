@@ -8,7 +8,6 @@ from tools.files import open_file
 from scoring.experiment import Experiment
 from phenoscoring.phenotypedatum import PhenotypeDatum
 from phenoscoring.entity import Entity
-from phenoscoring.time import now_timestamp
 
 
 # prefix used for all MGI models
@@ -36,7 +35,6 @@ def prep_genotype_models(datapath, tprfpr, obo):
     """scan data from a file and create genotype-level models."""
     
     result = dict()
-    now = now_timestamp()
     
     hit = Experiment(1, tprfpr[0], tprfpr[1])      
     with open_file(datapath, "rt") as f: 
@@ -49,19 +47,20 @@ def prep_genotype_models(datapath, tprfpr, obo):
             # let default zygosity be homozygous, unless description has <+>
             zygosity = "hom"
             if re.search("<\+>", row["Allelic_Composition"]):
-                zygosity = "het"            
-            datum = PhenotypeDatum(row["Mammalian_Phenotype_ID"], hit, now)                               
+                zygosity = "het"
+            pubmed_str = "PUBMED:"+row["PubMed_ID"]
+            datum = PhenotypeDatum(row["Mammalian_Phenotype_ID"], hit, pubmed_str)
             # add data genotype level
             mid = mgi_prefix + genotype_id + "_" + zygosity + "_U"
             if mid not in result:
                 marker_id = row["MGI_Marker_Accession_ID"]
                 background = row["Genetic_Background"]
                 result[mid] = mgi_model(mid, "genotype", 
-                                        marker_id = marker_id,
-                                        allele_id = row["Allele_ID"],
-                                        allele_symbol = row["Allele_Symbol"],
-                                        background = background,
-                                        zygosity = zygosity)
+                                        marker_id=marker_id,
+                                        allele_id=row["Allele_ID"],
+                                        allele_symbol=row["Allele_Symbol"],
+                                        background=background,
+                                        zygosity=zygosity)
             result[mid].add(datum)
     
     # summarize the model entities (consensus and trimming)

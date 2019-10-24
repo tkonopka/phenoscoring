@@ -19,6 +19,7 @@ desc_file = out_prefix + "-models.tsv.gz"
 pheno_file = out_prefix + "-phenotypes.tsv.gz"
 obo = MinimalObo(obo_file)
 
+
 class PrepMGITests(unittest.TestCase):
     """Test cases for parsing information from MGI tables"""
      
@@ -38,12 +39,12 @@ class PrepMGITests(unittest.TestCase):
         
         models = prep_MGI(mgi_file, (0.8, 0.05), obo)
         
-        ## should get four models (one marker, one allele; two zygosities)         
+        # should get four models (one marker, one allele; two zygosities)
         self.assertEqual(len(models), 4)
         
         alleles = set()
         markers = set()
-        for _,value in models.items():
+        for _, value in models.items():
             alleles.add(value.get("allele_id"))
             markers.add(value.get("marker_id"))
         
