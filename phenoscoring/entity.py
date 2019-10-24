@@ -13,36 +13,36 @@ class Entity():
     
     def __init__(self, id, category, timestamp=None, **kwargs):
         """object holding a model description
-        
-        Arguments:
-            id             string identifier for a model
-            category       string identifier for a group of models
-            timestamp      string timestamp
-            kwargs         additional named arguments            
+
+        :param id: string identifier for a model
+        :param category: string identifier for a group of models
+        :param timestamp: string timestamp
+        :param kwargs: additional named arguments
         """
         
         self.id = id
         self.category = category
         self.timestamp = timestamp
-        
         # copy additional descriptors into a dict
         self.description = dict()
         for key, value in kwargs.items():
             self.description[key] = value
-        
         self.data = []
 
     def set_description(self, key, value):
         """add a key/value pair to the model's description."""         
+
         self.description[key] = value
 
     def set_description_full(self, d):
         """transfer several key/value pairs from a dict into."""        
+
         for key, value in d.items():
             self.description[key] = value
 
     def add(self, datum):
         """add a phenotype datum to this model."""
+
         if type(datum) is not PhenotypeDatum:
             raise Exception("cannot add object of type "+str(type(datum)))
         self.data.append(datum)
@@ -110,13 +110,11 @@ class Entity():
 
     def trim_ancestors(self, obo, keep=set()):
         """redefine the phenotype data to remove entries with vague ontology terms
+
+        :param obo: ontology structure object
+        :parma keep: set with phenotypes that will not be trimmed
         
-        Arguments:
-            obo   ontology structure object
-            keep  set with phenotypes that will not be trimmed
-        
-        Returns:
-            changes self object to remove some phenotypes
+        :return: changes self object to remove some phenotypes
         """
         
         # scan all the data and identify ancestors
@@ -153,16 +151,19 @@ class Entity():
 
     def description_str(self):
         """get a string capturing all the description field."""
-        return json.dumps(self.description) 
+
+        return json.dumps(self.description)
 
     def has(self, key):
         """get a logical to check if a key has a value."""
+
         if key == "description":
             return True
         return key in self.__dict__ or key in self.description
     
     def get(self, key):
         """extract individual components describing the model."""        
+
         if key == "description":
             return self.description_str()
         elif key in self.__dict__:
@@ -191,14 +192,11 @@ class Entity():
 
 def filter_entities_cat(objects, categories=None):
     """get a subset of objects that satisfy category properties
-    
-    Arguments:
-        objects        dict or iterable of Entity objects
-        categories     None or a set of allowed values for object.category
-            leave None to get all objects, or use a set
-    
-    Returns:
-        dict or list of objects that satisfy the category criteria.
+
+    :param objects: dict or iterable of Entity objects
+    :param categories: None or a set of allowed values for object.category
+        leave None to get all objects, or use a set
+    :return: dict or list of objects that satisfy the category criteria.
     """
 
     if categories is None:
@@ -211,14 +209,11 @@ def filter_entities_cat(objects, categories=None):
 
 def filter_entities(objects, filter=None):
     """get a subset of objects that satisfy category properties
-    
-    Arguments:
-        objects        dict or iterable of Entity objects
-        filter         filter function acting on an Entity object and 
-                       return True/False            
-    
-    Returns:
-        dict or list of objects that satisfy the filter function
+
+    :param objects: dict or iterable of Entity objects
+    :param filter: filter function acting on an Entity object and
+        return True/False
+    :return: dict or list of objects that satisfy the filter function
     """
     
     if filter is None:

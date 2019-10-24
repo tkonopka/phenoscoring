@@ -7,18 +7,18 @@ import gzip
 import json
 
     
-def write_refset(refset, fileprefix, first_colname=""):
+def write_refset(refset, file_prefix, first_colname=""):
     """Dump contents of ReferenceSet to a set of files.
-    
-    Args:
-        refset:      object of class ReferenceSet
-        fileprefix:  full path to output, 
-                     individual files will have suffixes
+
+    :param refset: object of class ReferenceSet
+    :param file_prefix: string, path to output;
+        individual files will have suffixes
+    :param first_colname: string, first column in the output tables
     """
     
-    data_file = fileprefix+"_data.tsv.gz"
-    column_file = fileprefix+"_column_priors.json"
-    row_file = fileprefix+"_row_priors.json"
+    data_file = file_prefix + "_data.tsv.gz"
+    column_file = file_prefix + "_column_priors.json"
+    row_file = file_prefix + "_row_priors.json"
     
     nrow = len(refset.rows)
     ncol = len(refset.columns)
@@ -36,7 +36,7 @@ def write_refset(refset, fileprefix, first_colname=""):
         f.write(json.dumps(column_priors, indent=2))
         
     with gzip.open(data_file, "w") as f:
-        outstr= first_colname + "\t" + "\t".join(refset.column_names)+"\n"
+        outstr = first_colname + "\t" + "\t".join(refset.column_names) + "\n"
         f.write(outstr.encode("utf-8"))
         for i in range(nrow):
             iname = refset.row_names[i]

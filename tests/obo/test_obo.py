@@ -1,12 +1,12 @@
-'''
+"""
 Tests for contents of ontologies/obo.py
-'''
+"""
 
 from os.path import join
 import tempfile
 import unittest
 from obo.obo import Obo, MinimalObo
-from obo.obo import minimal_obo
+from obo.obo import print_minimal_obo
 
 
 testdir = join("tests", "testdata")
@@ -305,7 +305,6 @@ class OboObsoleteTests(unittest.TestCase):
         self.assertEqual(self.obo.canonical("SMALL:5"), "SMALL:5")
 
 
-
 class OboMinimizeTests(unittest.TestCase):
     """Minimizing content of an obo file"""
 
@@ -313,11 +312,9 @@ class OboMinimizeTests(unittest.TestCase):
         """output contains a remark line"""
         
         with tempfile.NamedTemporaryFile("wt") as tt:
-            with open(tt.name, "wt") as ttstream:
-                minimal_obo(smallfile, ttstream)
-            with open(tt.name, "rt") as ttstream:            
-                ttout = ttstream.readlines()        
-        self.assertTrue("remark" in str(ttout))
-        
-        
-        
+            with open(tt.name, "wt") as tt_stream:
+                print_minimal_obo(smallfile, tt_stream)
+            with open(tt.name, "rt") as tt_stream:
+                tt_out = tt_stream.readlines()
+        self.assertTrue("remark" in str(tt_out))
+

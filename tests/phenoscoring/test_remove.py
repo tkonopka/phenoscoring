@@ -1,8 +1,8 @@
-'''
+"""
 Tests for phenoscoring/phenoscoring.py and phenoscoring/update.py
 
 Adding and updatnig models to an existing db
-'''
+"""
 
 import unittest
 from phenoscoring.phenoscoring import Phenoscoring

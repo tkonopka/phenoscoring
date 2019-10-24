@@ -265,7 +265,7 @@ class Phenoscoring():
 
         tablemodel = None
         for x in self.tables:
-            if x.tabname == self.config.table:
+            if x.name == self.config.table:
                 tablemodel = x
         
         if tablemodel is None:

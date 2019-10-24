@@ -18,16 +18,13 @@ def vec_norm(a):
 
 @numba.njit()
 def cosine_distance(a, b, anorm, bnorm):
-    """compute cosine distance between a and b.
-    
-    Arguments:
-        a      array or list
-        b      array or list
-        anorm  precomputed norm of a
-        bnorm  precomputed norm of b
-    
-    Returns:
-        cosine distance 1 - ab/anorm*bnorm
+    """compute cosine distance
+
+    :param a: array or list
+    :param b: array or list
+    :param anorm: number, precomputed norm of a
+    :param bnorm: number, precomputed norm of b
+    :return: number, cosine distance between a and b
     """
     
     result = 0.0
@@ -38,24 +35,21 @@ def cosine_distance(a, b, anorm, bnorm):
 
 @numba.njit()
 def cosine_distances(v, mat, mat_norms):
-    """compute cosine distances between an array and columns in a matrix.
-    
-    Arguments:
-        v          array or list
-        mat        matrix
-        mat_norms  array or list with matrix column norms
-    
-    Returns:
-        list of cosine distances to each column in the matrix
+    """compute cosine distances between an array and columns in a matrix
+
+    :param v: array or list
+    :param mat: matrix
+    :param mat_norms: array or list with matrix column norms
+    :return: list of cosine distance to each column in the matrix
     """
-    
-    matlen = mat.shape[1]
-    result = [0.0]*matlen
-    vnorm = vec_norm(v)
-    for i in range(matlen):
+
+    mat_cols = mat.shape[1]
+    result = [0.0]*mat_cols
+    v_norm = vec_norm(v)
+    for i in range(mat_cols):
         w = mat[:, i]
-        wnorm = mat_norms[i]
-        result[i] = cosine_distance(v, w, vnorm, wnorm)
+        w_norm = mat_norms[i]
+        result[i] = cosine_distance(v, w, v_norm, w_norm)
     return result
 
 
@@ -70,14 +64,14 @@ def neighbor_average(mat, priors, indexes):
     
     # create vector, initially empty, to mimic a column
     n_features = mat.shape[0]
-    result = [0.0] * n_features
+    result = [0.0]*n_features
     
     # add contents from the matrix
     for j in indexes:
         jprior = priors[j]
-        data = mat[:,j]
+        data = mat[:, j]
         for i in range(n_features):
-            result[i] += jprior * data[i]
+            result[i] += jprior*data[i]
     
     # normalize by the weights
     for i in range(n_features):

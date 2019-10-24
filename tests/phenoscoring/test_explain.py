@@ -1,6 +1,6 @@
-'''
+"""
 Tests for extracting details of scoring calculations.
-'''
+"""
 
 import json
 import unittest
@@ -111,5 +111,5 @@ class PhenocomputeExplainTests(unittest.TestCase):
         self.pipeline.config.model = "MGI_MA:001_hom,MGI_MA:002_hom"
         self.pipeline.config.reference = "DISEASE:3"                
         with self.assertRaises(Exception):
-            result = self.pipeline.explain()
+            self.pipeline.explain()
 

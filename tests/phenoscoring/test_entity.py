@@ -1,6 +1,6 @@
-'''
+"""
 Tests for contents of phenoscoring/entity.py
-'''
+"""
 
 import json
 import unittest
@@ -363,32 +363,24 @@ class PhenoscoringEntityFilterTests(unittest.TestCase):
     
     def test_filter_none(self):
         
-        source = []            
-        source.append(Entity("o1", "X"))
-        source.append(Entity("o2", "Y"))
+        source = [Entity("o1", "X"), Entity("o2", "Y")]
         result = filter_entities(source, None)
         self.assertEqual(len(result), 2)
         self.assertEqual(result[0].id, "o1")
         
     def test_filter_category_none(self):
         
-        source = []            
-        source.append(Entity("o1", "X"))
-        source.append(Entity("o2", "Y"))
-        source.append(Entity("o3", "X"))
-        source.append(Entity("o4", "Z"))
+        source = [Entity("o1", "X"), Entity("o2", "Y"),
+                  Entity("o3", "X"), Entity("o4", "Z")]
         result = filter_entities_cat(source, None)
         self.assertEqual(len(result), 4)
         self.assertEqual(result[0].id, "o1")
         
     def test_filter_category(self):
         
-        source = []            
-        source.append(Entity("o1", "X"))
-        source.append(Entity("o2", "Y"))
-        source.append(Entity("o3", "X"))
-        source.append(Entity("o4", "Z"))
-        result = filter_entities_cat(source, set(["X", "Z"]))
+        source = [Entity("o1", "X"), Entity("o2", "Y"),
+                  Entity("o3", "X"), Entity("o4", "Z")]
+        result = filter_entities_cat(source, {"X", "Z"})
         self.assertEqual(len(result), 3)
         self.assertEqual(result[0].id, "o1")
         
@@ -399,6 +391,6 @@ class PhenoscoringEntityFilterTests(unittest.TestCase):
         source["o2"] = Entity("o2", "Y")
         source["o3"] = Entity("o3", "X")
         source["o4"] = Entity("o4", "Z")
-        result = filter_entities_cat(source, set(["X", "Z"]))
+        result = filter_entities_cat(source, {"X", "Z"})
         self.assertEqual(len(result), 3)
         self.assertEqual(result["o1"].id, "o1")

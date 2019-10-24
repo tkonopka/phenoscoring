@@ -1,5 +1,9 @@
 """
-Class holding details of an experiment: hit/non-hit, tpr, fpr
+Classes and functions for summarizing experiment outcomes: tpr, fpr, etc.
+
+(The current implementation might seem overly complicated. This is
+an artifact of how some of the classes were used subclassed in more than
+one way. Anyway, not much harm from the layered structure here.)
 """
 
 from math import log2
@@ -24,7 +28,7 @@ def update_single_ratio(p, fpr_tpr):
     return p / (((1-fpr_tpr)*p) + fpr_tpr) 
 
 
-def reglog2(p, reg_lower=-32, reg_upper=32):
+def reg_log2(p, reg_lower=-32, reg_upper=32):
     """regularized logarithm"""
     
     try:
@@ -39,25 +43,23 @@ def reglog2(p, reg_lower=-32, reg_upper=32):
 
 def evidence_update(p, tpr_list, fpr_list, reg_lower=-512, reg_upper=512):
     """Update a probability p given (tpr, fpr) evidence.
-    
+
     This implementation uses sums of logarithms for long lists
-    
-    Args: 
-        p:         float
-        tpr_list:  list of true-positive values
-        fpr_list:  list of false-positive values
-        reg_lower  regularization, 
-          fpr/tpr < 2^(reg_lower) will be adjusted
-        reg_upper  regularization number,
-          fpt/tpr > 2^(reg_upper) will be adjusted       
+
+    :param p: float
+    :param tpr_list: list of true-positive values
+    :param fpr_list:list of false-positive values
+    :param reg_lower: regularization, fpr/tpr < 2^(reg_lower) will be adjusted
+    :param reg_upper: regularization, fpr/tpr > 2^(reg_upper) will be adjusted
+    :return: float, updated probability
     """
-            
+
     fpr_logprod = tpr_logprod = 0.0
     for tpr, fpr in zip(tpr_list, fpr_list):
         if tpr == fpr:
             continue
-        tpr_logprod += reglog2(tpr, reg_lower, reg_upper)
-        fpr_logprod += reglog2(fpr, reg_lower, reg_upper)                
+        tpr_logprod += reg_log2(tpr, reg_lower, reg_upper)
+        fpr_logprod += reg_log2(fpr, reg_lower, reg_upper)
         
     expodiff = max(reg_lower, min(reg_upper, fpr_logprod-tpr_logprod))        
     return update_single_ratio(p, pow(2, expodiff))
@@ -77,7 +79,7 @@ def estimate_update(p, prior, posterior):
     return update_single_ratio(p, update_ratio)
 
 
-class EvidenceDatum():
+class EvidenceDatum:
     """Generic class that can set an annotation key/value.
     This is essentially a dict(), with some helper functions.   
     """
@@ -99,10 +101,12 @@ class EvidenceDatum():
 
     def copy(self):
         """create a copy of itself."""        
+
         return copy.copy(self)
 
     def __str__(self):
         """create json representation of object's data."""
+
         return json.dumps(self.__dict__)
 
 
@@ -114,11 +118,11 @@ class InferenceDatum(EvidenceDatum):
         self.fpr = fpr
 
 
-class EvidenceChain():
+class EvidenceChain:
     """A record encoding an inference calculation based on several data"""
     
     def __init__(self, **kwargs):
-        """create a record of an inference procedure."""
+        """create a record of an inference procedure"""
         
         self.data = []
         if kwargs is not None:
@@ -126,7 +130,7 @@ class EvidenceChain():
                 self.__dict__[k] = v
 
     def set_annotation(self, key, value):
-        """add an annotation key/value pair."""
+        """add an annotation key/value pair"""
         
         self.__dict__[key] = value
         return self
@@ -135,20 +139,13 @@ class EvidenceChain():
         return key in self.__dict__
 
     def add(self, datum):
-        """add an element of data to the experiment chain.
-        For inference data, this will regularize the tpr,fpr fields.
-        
-        Args:
-            datum:      object of type InferenceDatum or CoverageDatum
-            reg_lower:  lower bound for tpr,fpr fields
-            reg_upper:  upper bound for tpr, fpr fields
-        """   
+        """add an element of data to the experiment chain"""
                 
         self.data.append(datum)
         return self
 
     def evaluate_inference(self):
-        """compute posterior probability given inference data.""" 
+        """compute posterior probability given inference data"""
         
         # transfer TPR, FPR from data elements into lists
         tpr = [0]*len(self.data)
@@ -165,7 +162,7 @@ class EvidenceChain():
 
         return self.evaluate_inference()
 
-    def to_json(self, decimal_places=8, nodata=False):
+    def to_json(self, nodata=False):
         """turn the data into a json representation."""
         
         # evaluate inference probability
@@ -185,8 +182,7 @@ class EvidenceChain():
 
     def __str__(self):
         """create a json representation of the evidence chain."""
-        
-        # for printing on screen, using json's indenting
+
         jsonstr = self.to_json()
         return json.dumps(json.loads(jsonstr), indent=2)
 
@@ -195,27 +191,31 @@ class InferenceChain(EvidenceChain):
     
     def __init__(self, prior, **kwargs):
         """initialize a chain with a prior probability."""
+
         super(InferenceChain, self).__init__(**kwargs)
         self.prior = prior
 
-    
-class LeanInferenceChain():
+
+class LeanInferenceChain:
     """Another evidence chain class that has only add and evaluate functions."""
 
     def __init__(self, prior, **kwargs):
         """initialize a calculation with a prior and empty tpr/fpr.
-        In this implementation, kwargs are ignored.
+
+        :param prior: float, prior probability
+        :param **kwargs: ignored in this implementation
         """
+
         self.prior = prior
         self.tpr = []
         self.fpr = []
 
     def add(self, tprfpr):
-        """add an element of data to the evidence chain
-        
-        Arguments:
-            datum 
-        """        
+        """add one pair or tpr and fpr values into the evidence chain
+
+        :param tprfpr: list with two components, tpr and fpr
+        """
+
         if tprfpr[0] != tprfpr[1]:      
             self.tpr.append(tprfpr[0])
             self.fpr.append(tprfpr[1])        

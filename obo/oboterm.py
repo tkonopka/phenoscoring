@@ -5,13 +5,11 @@ This container/parser only supports a few of the data types in an obo term.
 """
 
 
-## ##################################################################
-# Container for an ontology term
-# To use this, create an object, then add data to it. 
-
-
 class MinimalOboTerm:
-    """A container holding just minimal information on an ontology term"""
+    """A container holding just minimal information on an ontology term.
+
+    To use this, first initialize an empty object, then add data into it
+    """
 
     def __init__(self):
         """create a small set of empty fields"""
@@ -95,13 +93,11 @@ class OboTerm(MinimalOboTerm):
         return True
 
     def parse(self, datastr):
-        """parse one line of data from a string
+        """parse one line of data from a string, remember in object
 
-        Arguments:
-            datastr   character string, single line from an obo file
-            minimal   boolean, if True, parsing will skip some steps
+        :param datastr: string, single line from an obo file
         """
-                
+
         if datastr == "":
             return
         tokens = datastr.split(": ", 1)
@@ -138,5 +134,7 @@ class OboTerm(MinimalOboTerm):
 
     def __str__(self):
         """a quick summary of this term."""
+
         obs = str(self.obsolete)
-        return "OboTerm: "+ self.id+", "+self.name + ", obsolete: "+obs
+        id = str(self.id)
+        return "OboTerm: " + id + ", " + self.name + ", obsolete: " + obs

@@ -6,14 +6,13 @@ Class holding details of an experiment: hit/non-hit, tpr, fpr
 class Experiment():
         
     def __init__(self, value=1, tpr=0.8, fpr=0.05):
-        """Create new experiment object.
-        
-        Args:
-            value:    logical, set True if experiment gave significant result
-            tpr:    true positive rate of test
-            fpr:    false positive rate of test
+        """create new experiment object.
+
+        :param value: logical, set True if experiment gave significant result
+        :param tpr: float, true positive rate of test
+        :param fpr: float, false positive rate of test
         """
-        
+
         self.value = value
         self.tpr = tpr
         self.fpr = fpr        
@@ -21,7 +20,7 @@ class Experiment():
     def update(self, p):
         """Update a probability p given evidence from this test."""
         
-        if self.tpr==self.fpr:
+        if self.tpr == self.fpr:
             return p
 
         if self.value:

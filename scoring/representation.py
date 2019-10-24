@@ -22,8 +22,7 @@ class Representation():
     def copy(self, name=None):
         """create a new object with a copy of the data
         
-        Args:
-            name   character, name for new Representation
+        :param name: string, name for new Representation
         """
                 
         if name is None:
@@ -33,14 +32,12 @@ class Representation():
         return result
 
     def impute(self, obo, defaults, seeds=None):
-        """Update the values in this representation using an ontology.
-        
-        Args:
-            obo:       object of class ontologies.obo 
-            defaults:  default values for all terms in the ontology.
-            seeds:     list of keys, imputation starts from these elements in 
-                       specified order. If None, functions starts from all 
-                       existing keys.
+        """update the values in this representation using an ontology.
+
+        :param obo: object of class ontologies.obo
+        :param defaults: default values for all terms in the ontology.
+        :param seeds: list of keys, imputation starts from these elements in
+            specified order. If None, functions starts from all existing keys.
         """
                 
         # add defaults to existing representation
@@ -116,11 +113,11 @@ class Representation():
         return sum(self.data.values())
 
     def defaults(self, defaults):
-        """Extend the set of values encoded in the representation.
-        Data already saved in self will not be overwritten.        
+        """extend the set of values encoded in the representation.
+
+        Data already saved in self will not be overwritten.
         
-        Args:
-            defaults:    dict or series        
+        :param defaults: dict or series
         """
         
         old = self.data.copy()
@@ -149,4 +146,6 @@ class Representation():
         return True
 
     def __str__(self):
-        return "Representation\nname: "+str(self.name)+"\ndata: "+str(self.data)
+        return "Representation\nname: " + str(self.name) + \
+               "\ndata: " + str(self.data)
+

@@ -1,6 +1,6 @@
-'''
+"""
 Tests for counting hits among model scores
-'''
+"""
 
 import unittest
 from phenoscoring.phenoscoring import Phenoscoring

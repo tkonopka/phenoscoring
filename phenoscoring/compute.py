@@ -23,22 +23,26 @@ class PhenocomputePacket():
     def __init__(self, config, references=None, models=None,
                  log=None, run_msg="Packet "):
         """A runnable class for processing a set of references and models
-        
-        Args:
-            config      object of class PhenoscoringConfig
-            references  iterable with reference names
-            models      iterable with model names
-            stamp       timestamp for calculations
-            log         a logging function
-            run_msg     a template for a status message
-        """ 
-                        
+
+        :param config: object of class PhenoscoringConfig
+        :param references: iterable with reference names
+        :param models: iterable with model names
+        :param stamp: timestamp for calculations
+        :param log: a logging function
+        :param run_msg: a template for a status message
+        """
+
         self.config = config        
         self.stamp = config.stamp        
         self.log = log
-        self.run_msg = run_msg    
-        self.clear()
-        
+        self.run_msg = run_msg
+        self.phen_priors = None
+        self.ref_priors = None
+        self.general_refset = None
+        self.specific_refset = None
+        self.models = dict()
+        self.references = set()
+
         # setup calculation with references and stub models
         self.references = set(references)
         for id in models:
@@ -98,8 +102,8 @@ class PhenocomputePacket():
             self._add_data(modelid, phenotype, 
                            row["value"], row["TPR"], row["FPR"])
 
-    def clear(self):
-        """defines or clears some objects"""
+    def _clear(self):
+        """clears some objects to release memeory"""
         
         self.phen_priors = None
         self.ref_priors = None
@@ -158,27 +162,22 @@ class PhenocomputePacket():
                 scorestab.add(model=modelid, reference=ref, timestamp=stamp,
                               general=g, specific=s)
         scorestab.save()
-        self.clear()  # clear to prompt release of memory
+        self._clear()
 
         if self.log is not None:
             self.log(self.run_msg + " - done")        
 
 
-# ##################################################################
-#
-
 def prep_compute_packets(config, references=None, models=None, 
                          partition_size=None, log=None):
     """prepare ComputePacket packets for calculating scores.
-    
-    Args:
-        config          PhenoscoringConfig object with settings
-        references      names of references to score
-        models          names of models to score
-        partition_size  integer, can override partition_size in config
-    
-    Returns:
-        array with PhenocomputePackets, which together cover
+
+    :param config: PhenoscoringConfig object with settings
+    :param references: names of references to score
+    :param models: names of models to score
+    :param partition_size: integer, can override partition_size in config
+    :param log: function to use for logging
+    :return: array with PhenocomputePackets, which together cover
         all combinations of references and models
     """
     
@@ -200,7 +199,7 @@ def prep_compute_packets(config, references=None, models=None,
     n_packets = n_ref_groups * n_model_groups
         
     # create sets for holding model/reference combinations in each packet
-    ref_groups= [None] * n_packets
+    ref_groups = [None] * n_packets
     model_groups = [None] * n_packets
     for z in range(n_packets):
         ref_groups[z], model_groups[z] = set(), set()        

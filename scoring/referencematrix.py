@@ -18,11 +18,11 @@ class ReferenceMatrix():
     def __init__(self, refset, features):
         """Initialize the matrix based on an existing refset
 
-        Arguments:
-            refset     ReferenceSet object
-            features   iterable with a set of features, used to cut feature in refset
+        :param refset: ReferenceSet object
+        :param features: iterable with a set of features,
+        used to cut feature in refset
         """
-        
+
         # subset features to those that are consistent with the input refset
         new_features = set(features)
         for id in features:
@@ -72,13 +72,10 @@ class ReferenceMatrix():
         
     def nearest_neighbors(self, source, k):
         """get indexes for k neighbors for a given source
-        
-        Arguments:
-            source    name of reference
-            k         integer, number of nearest neighbors to find
-        
-        Returns:
-            list with k nearest neighbors
+
+        :param source: name of reference
+        :param k: integer, number of nearest neighbors to find
+        :return: list with k nearest neighbors
         """
 
         source_index = self.columns[source]

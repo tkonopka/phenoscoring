@@ -1,6 +1,6 @@
-'''
+"""
 Tests for contents of scoring/inference.py
-'''
+"""
 
 
 import unittest
@@ -49,18 +49,16 @@ class InferenceTests(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         """At end, ensure test db is deleted."""
+
         remove_db(cls.dbfile)                
-                   
-        
+
     def test_checkprep(self):
         """inference only works when set is prepped"""  
                                         
-        rs = ReferenceSet(dict(refA=0.5, refB=0.5), ids=self.obo.ids()) 
-        
+        rs = ReferenceSet(dict(refA=0.5, refB=0.5), ids=self.obo.ids())
         with self.assertRaises(Exception):
             rs.inferenceModel(self.y3model)     
-        
-    
+
     def test_baddata(self):
         """inference should raise when input is bad"""  
         
@@ -69,7 +67,6 @@ class InferenceTests(unittest.TestCase):
         with self.assertRaises(Exception) as e:
             rs.inference(5)
 
-    
     def test_between2(self):
         """inference when model equally similar to two refs"""  
         
@@ -82,8 +79,7 @@ class InferenceTests(unittest.TestCase):
         
         inf = rs.inference(self.y3model)
         self.assertAlmostEqual(inf["refA"], inf["refB"], msg="equally likely")        
-        
-    
+
     def test_between_refs_and_null(self):
         """inference when model is similar to two refs and a there is a null"""  
         
@@ -97,13 +93,12 @@ class InferenceTests(unittest.TestCase):
         inf = rs.inference(self.y3model)            
         self.assertAlmostEqual(inf["refA"], inf["refB"], 
                                msg="equally likely")
-    
-    
+
     def test_model_nodata(self):
         """inference when references are unequal but model has no data"""  
         
         model = Representation(name="nodata")
-        ## let ref universe have two annotations and one null
+        # let ref universe have two annotations and one null
         rs = ReferenceSet(dict(null=0.8, refA=0.1, refB=0.1), 
                           ids=self.obo.ids(), row_priors=self.obodefaults)
         rs.add(self.refA).add(self.refB)
@@ -113,8 +108,7 @@ class InferenceTests(unittest.TestCase):
         inf = rs.inference(model)             
         self.assertAlmostEqual(inf["refA"], inf["refB"], 
                                msg="equally likely")
-    
-    
+
     def test_difference_in_priors(self):
         """inference when model matches two references, 
         but have different priors"""  
@@ -130,7 +124,6 @@ class InferenceTests(unittest.TestCase):
         self.assertLess(inf["refA"], inf["refB"], 
                         msg="equal match, but A has weaker prior")
 
-    
     def test_underflow(self):
         """attempt to get underflow in individual p."""  
         
@@ -153,8 +146,7 @@ class InferenceTests(unittest.TestCase):
                         msg="must always be a number, even if zero")
         self.assertGreaterEqual(result["refB"], 0, 
                         msg="must always be a number, even if zero")        
-        
-        
+
     def test_model_rootonly(self):
         """score a vague model."""  
                 
@@ -163,22 +155,20 @@ class InferenceTests(unittest.TestCase):
         
         self.assertAlmostEqual(inf["DISEASE:1"], inf["DISEASE:2"], 
                                "most diseases about the same")
-    
-    
+
     def test_specific_term(self):
         """score a specific model."""  
 
         rr = Representation(name="specific").set("Y:002", 0.99)    
         inf = self.rs.inference(rr)
-        ## Disease 3 has Y:007, so should be most likely among diseases                    
+        # Disease 3 has Y:007, so should be most likely among diseases
         self.assertGreater(inf["DISEASE:3"], self.ref_priors["DISEASE:3"], 
                            "D:3 has Y:7 so should increase")        
         self.assertGreater(inf["DISEASE:3"], inf["DISEASE:1"], 
                            "D:3 should become most likely")                                 
         self.assertGreater(inf["DISEASE:3"], inf["DISEASE:2"], 
                            "D:3 should become most likely")                         
-        
-    
+
     def test_refset2(self):
         """check averaging of values."""  
         
@@ -186,18 +176,16 @@ class InferenceTests(unittest.TestCase):
                         "raw value should be 1")        
         self.assertLess(self.rs2.get("Y:004", "DISEASE:1"), 0.9, 
                         "averaging decreases value")
-        
-    
+
     def test_refset2_inference(self):
-        """inference based on specific should be smaller than based on general values."""
+        """inference based on specific should be smaller than on general."""
         
         rr = Representation(name="custom").set("Y:001", 0.8) 
         inf_general = self.rs.inference(rr)
         inf_specific = self.rs2.inference(rr)
-        self.assertLess(inf_specific["DISEASE:1"], inf_general["DISEASE:1"],
-                        "Y:001 is shared by DISEASE:1 and DISEASE:2, so specific inf down")
-        
-    
+        # Y:001 is shared by DISEASE:1 and DISEASE:2, so specific inf down
+        self.assertLess(inf_specific["DISEASE:1"], inf_general["DISEASE:1"])
+
     def test_specific_term_FP_increases(self):
         """score a specific model, vaguely similar disease should increase."""  
         

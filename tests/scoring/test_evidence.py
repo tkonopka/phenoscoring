@@ -1,6 +1,6 @@
-'''
+"""
 Tests for contents of scoring/evidence.py
-'''
+"""
 
 import json
 import unittest

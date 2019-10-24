@@ -1,6 +1,6 @@
-'''
+"""
 Tests for contents of scoring/referenceset.py and referencematrix.py
-'''
+"""
 
 
 import gzip

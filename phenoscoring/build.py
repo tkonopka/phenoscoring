@@ -90,14 +90,11 @@ def prep_refdict(dbpath, obo, missing_factor):
 
 def dict2referenceset(repdict, feature_ids, priors):
     """create a representation set, using imputation
-    
-    Arguments:
-        repdict      a dictionary of Representation objects
-        feature_ids  list with all features
-        priors       dict linking name to a prior probability
-        
-    Returns:
-        ReferenceSet object
+
+    :param repdict: a dictionary of Representation objects
+    :param feature_ids: list with all features
+    :param priors: dict linking name to a prior probability
+    :return: ReferenceSet object
     """
     
     result = ReferenceSet(priors, feature_ids)    
@@ -108,14 +105,13 @@ def dict2referenceset(repdict, feature_ids, priors):
 
 def prep_refset(dbpath, obo, ref_priors, missing_factor):
     """read concise references, impute, and compile a refset.
-    
-    Arguments:
-        dbpath:          path to sqlite db
-        obo:             object of class Obo
-        ref_priors:      dictionary linking references to numbers        
-    
-    Returns:
-        ReferenceSet object
+
+    :param dbpath: path to sqlite db
+    :param obo: object of class Obo
+    :param ref_priors: dictionary linking references to numbers
+    :param missing_factor: number, used to set reference values that are
+        not explicitly define
+    :return: ReferenceSet object
     """
     
     # read phenotypes from the database    
@@ -124,7 +120,7 @@ def prep_refset(dbpath, obo, ref_priors, missing_factor):
 
 
 def fill_phenotype_frequency_table(dbpath, datapath):
-    """Transfer phenotype frequencies from a file on disk into the database."""
+    """Transfer phenotype frequencies from a file into the database."""
     
     freqtable = PhenotypeFrequencyTable(dbpath)
     with open_file(datapath, "rt") as f:
@@ -135,7 +131,8 @@ def fill_phenotype_frequency_table(dbpath, datapath):
 
 
 def slim_refset(refmatrix):
-    """create a smaller refset by eliminating features that are always constant."""
+    """create a smaller refset by eliminating features that are
+    equal across all the references."""
     
     keep_features = set()
     for feature in refmatrix.row_names:
@@ -180,11 +177,11 @@ def fill_complete_reference_table(dbpath, obo, config):
     refset = slim_refset(refset)    
 
     # create an array of packets, each containing some references
-    numpackets = 1 if refset.n_references() < 64 else config.cores
-    packets = [SpecificityPacket(dbpath, refset, k) for _ in range(numpackets)]    
+    n = 1 if refset.n_references() < 64 else config.cores
+    packets = [SpecificityPacket(dbpath, refset, k) for _ in range(n)]
     for i, refname in enumerate(refset.columns.keys()):
         if refname == "null":
             continue
-        packets[i%numpackets].add(refname)    
+        packets[i%n].add(refname)
     run_packets(packets, config.cores)
 

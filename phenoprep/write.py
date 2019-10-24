@@ -30,7 +30,7 @@ def format_line(object, colnames, sep="\t", ndigits=5):
 def write_descriptions(models, outfile, exclude=["timestamp"]):
     """ write a table with model descriptions."""
     
-    colnames = ModelDescriptionTable.textfields
+    colnames = ModelDescriptionTable.text_fields
     colnames = [_ for _ in colnames if _ not in set(exclude)]
     with open_file(outfile, "wt") as f:        
         fwrite(f, "\t".join(colnames))
@@ -42,8 +42,8 @@ def get_colnames(TableClass, exclude):
     """get a list of column names from a table class"""
     
     # get all column names (except id, which will be entered separately)
-    result = [_ for _ in TableClass.textfields]    
-    result.extend(TableClass.realfields)    
+    result = [_ for _ in TableClass.text_fields]
+    result.extend(TableClass.real_fields)
     result = [_ for _ in result if _ not in set(exclude)]    
     return result
 

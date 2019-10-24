@@ -1,7 +1,6 @@
-'''
+"""
 Tests for contents of phenoscoring/compute.py - computing model scores
-'''
-
+"""
 
 import unittest
 from collections import Counter
@@ -81,14 +80,14 @@ class PhenoscoringComputeTests(unittest.TestCase):
     def test_paritioning_None(self):
         """partitioning works when one of the inputs is None."""
                 
-        packetsA = prep_compute_packets(self.config, 
-                                        references=None, 
-                                        models=["a", "b"])
-        packetsB = prep_compute_packets(self.config, 
-                                        references=["a"], 
-                                        models=None)        
-        self.assertEqual(packetsA, [])
-        self.assertEqual(packetsB, [])
+        packets_a = prep_compute_packets(self.config,
+                                         references=None,
+                                         models=["a", "b"])
+        packets_b = prep_compute_packets(self.config,
+                                         references=["a"],
+                                         models=None)
+        self.assertEqual(packets_a, [])
+        self.assertEqual(packets_b, [])
     
     def test_paritioning_small(self):
         """split computation into small partitions"""
@@ -96,13 +95,13 @@ class PhenoscoringComputeTests(unittest.TestCase):
         modelnames = get_model_names(self.dbfile)        
         
         # partition into small bits
-        self.config.partition_size=2
+        self.config.partition_size = 2
         packets = prep_compute_packets(self.config, 
                                        references=self.refnames, 
                                        models=modelnames)
         
         self.assertGreater(len(packets), 2, 
-                          "small partition means split over many packets")                 
+                           "small partition means split over many packets")
         # each packet should have at most 2 references and at most 2 models
         for z in range(len(packets)):
             self.assertLessEqual(len(packets[z].references), 2)
@@ -112,11 +111,11 @@ class PhenoscoringComputeTests(unittest.TestCase):
         result, expected = Counter(), Counter()        
         for m in modelnames:
             for r in self.refnames:
-                expected.update([m+"_"+r])
+                expected.update([m + "_" + r])
         for packet in packets:
             for m in packet.models:
                 for r in packet.references:                
-                    result.update([m+"_"+r])        
+                    result.update([m + "_" + r])
         self.assertEqual(result, expected)
         numrefs = len(self.refnames)
         self.assertEqual(len(result), len(modelnames)*numrefs)
@@ -128,13 +127,13 @@ class PhenoscoringComputeTests(unittest.TestCase):
         modelnames = get_model_names(self.dbfile)        
         
         # partition into small bits
-        self.config.partition_size=1024
+        self.config.partition_size = 1024
         packets = prep_compute_packets(self.config, 
                                        references=self.refnames, 
                                        models=modelnames)
         
         self.assertEqual(len(packets), 1, 
-                          "large partition means everything fits into one")                 
+                         "large partition means everything fits into one")
         self.assertEqual(len(packets[0].references), len(self.refnames))
         self.assertEqual(len(packets[0].models), len(modelnames))
 
@@ -235,4 +234,5 @@ class PhenoscoringRecomputeTests(unittest.TestCase):
         self.assertEqual(len(before), len(after),
                          "recomputing should give same result structure")
         # technically, the timestamps would be different,
-        # but the default timestamp format does not capture milliseconds 
+        # but the default timestamp format does not capture milliseconds
+

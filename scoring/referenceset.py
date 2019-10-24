@@ -20,11 +20,10 @@ class ReferenceSet():
 
     def __init__(self, priors, ids, row_priors=None):
         """create a set of reference representations.
-        
-        Arguments:
-            priors        dict with prior probabilities for all references.
-            ids           list of all the feature names
-            row_priors    dict with prior probabilities for all features.          
+
+        :param priors: dict with prior probabilities for all references.
+        :param ids: list of all the feature names
+        :param row_priors: dict with prior probabilities for all features.
         """ 
 
         # mappings from feature ids to indexes
@@ -65,8 +64,7 @@ class ReferenceSet():
         # cache for finding positive parents during FP inference calculations
         self.cache = dict()
         self.temp = Counter()
-        
-        
+
     def learn_obo(self, obo):
         """extract parent-of relations from ontology"""
 
@@ -148,13 +146,10 @@ class ReferenceSet():
 
     def _find_positive_ancestor(self, refdata, seedindex):
         """Traverse obo; find a node with value greater than its prior
-        
-        Args:
-            refdata:     list with data for the reference
-            seedindex:   index of feature (within this reference set)
-            
-        Returns:
-            tuple of length 2. 
+
+        :param refdata:     list with data for the reference
+        :param seedindex:   index of feature (within this reference set)
+        :return: tuple of length 2.
             First element: a feature index.
             Second element: score for the enrichment wrt to the prior
         """ 
@@ -189,13 +184,10 @@ class ReferenceSet():
         
         This is a wrapper for _find_positive_ancestor. This saves results into 
         a cache so that the same calculation is not repeated many times. 
-        
-        Args:
-            refindex    integer, identifier for reference
-            seedindex   integer, identifier for a feature
-        
-        Returns:
-            integer index for a feature for which the reference is positive
+
+        :param refindex: integer, identifier for reference
+        :param seedindex: integer, identifier for a feature
+        :return: integer index for a feature for which the reference is positive
         """
        
         key = (len(self.row_names)*refindex) + seedindex
@@ -210,14 +202,11 @@ class ReferenceSet():
     def inference_chain(self, model, target, verbose=False, fp_penalty=1):
         """Construct an evidence chain for comparing a model to a reference
 
-        Arguments:
-            model       Representation object
-            target      string with a reference name
-            verbose     logical set to obtain less/more detail in output
-            fp_penalty  numeric value determines handling of false positives
-
-        Returns:
-            an EvidenceChain        
+        :param model: Representation object
+        :param target: string with a reference name
+        :param verbose: logical set to obtain less/more detail in output
+        :param fp_penalty: numeric value determines handling of false positives
+        :return: an EvidenceChain
         """
 
         refindex = self.columns[target]
@@ -225,8 +214,7 @@ class ReferenceSet():
         refdata = self.data[refindex]
         
         row_priors = self.row_priors
-        #parents = self.parents
-        rows = self.rows        
+        rows = self.rows
 
         InfChainClass = InferenceChain if verbose else LeanInferenceChain
         result = InfChainClass(prior, reference=target, model=model.name)
@@ -325,15 +313,12 @@ class ReferenceSet():
         
         This function assumes row_priors and column_priors are set.
         They must be set either manually, or via self.prep()
-        
-        Args:
-            model        Representation object        
-            target       list of reference names to score target
-            fp_penalty   numeric, weight for false positives
-            verbose     logical, passed on to inference_chain
-        
-        Returns:
-            dictionary
+
+        :param model: Representation object
+        :param target: list of reference names to score target
+        :param fp_penalty: numeric, weight for false positives
+        :param verbose: boolean, passed on to inference_chain
+        :return: dictionary
         """
 
         if target is None:
@@ -355,8 +340,8 @@ class ReferenceSet():
     def __str__(self):
         """Provide a description of some of the data in the reference set."""
         
-        result = ["rows: " + str(self.rows)]
-        result.append("columns: "+str(self.columns))
-        result.append("data: "+str(self.data))
+        result = ["rows: " + str(self.rows),
+                  "columns: "+str(self.columns),
+                  "data: "+str(self.data)]
         return "\n".join(result)
 

@@ -1,24 +1,21 @@
-'''
+"""
 Tests for definitions of obo terms
-'''
-
+"""
 
 import unittest
 from obo.oboterm import MinimalOboTerm, OboTerm
 
 
-class MinmalOboTermTests(unittest.TestCase):
+class MinimalOboTermTests(unittest.TestCase):
     """Test cases for class MinimalOboTerm."""
     
     def test_str(self):
-        """str summarizes content of object"""  
+        """str summarizes content of object, but not the name"""
         
         term = MinimalOboTerm()
         term.parse("id: ABC:002")
-        term.parse("")
         term.parse("name: child_A")
         result = str(term)
-        # the object can be stringified, but does not contain the name
         self.assertTrue("ABC" in result)
         self.assertFalse("child_A" in result)
 

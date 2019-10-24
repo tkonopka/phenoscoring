@@ -1,12 +1,12 @@
 """
-Configuration object for class Phenoscoring()
+Configuration object for class Phenoscoring
 """
 
 from .time import now_timestamp
 
 
-class PhenoscoringConfig():
-    """class that objects interpreted by Phenoscoring()."""
+class PhenoscoringConfig:
+    """class that objects interpreted by Phenoscoring."""
     
     action = "compute"
     explain = "general"  

@@ -5,27 +5,21 @@ Container holding a model for the Phenoscoring DB
 from .time import now_timestamp
 
 
-class PhenotypeDatum():
+class PhenotypeDatum:
     """Container for an experiment result, value=0/1, TPR/FPR."""
     
-    def __init__(self, phenotype, experiment, timestamp = None):                  
+    def __init__(self, phenotype, experiment, timestamp=None):
         """object holding a phenotype association
-        
-        Arguments:
-            phenotype    string identifier for a phenotype
-            experiment   object summarizing a hit/nohit, tpr, fpr
-            timestamp    time associated with            
+
+        :param phenotype: string identifier for a phenotype
+        :param experiment: object summarizing a hit/nohit, tpr, fpr
+        :param timestamp: time associated with
         """
         
         self.phenotype = phenotype
         self.experiment = experiment
-        
-        # copy additional descriptors into a dict        
-        if timestamp is None:
-            self.timestamp = now_timestamp()
-        else:
-            self.timestamp = timestamp                
-    
+
+        self.timestamp = timestamp if timestamp else now_timestamp()
     
     def get(self, key):
         """extract a single components from the datum."""
@@ -39,7 +33,6 @@ class PhenotypeDatum():
         elif key == "value":
             return self.experiment.value
 
-    
     @property
     def value(self):
         return self.experiment.value
@@ -52,7 +45,6 @@ class PhenotypeDatum():
     def fpr(self):
         return self.experiment.fpr
 
-        
     def __str__(self):
         """a string with all the data in the object."""
         
@@ -61,7 +53,6 @@ class PhenotypeDatum():
                   str(self.timestamp))
         return "PhenotypeDatum(" + ",".join(result) + ")"
 
-
     def __eq__(self, other):
         """check for equivalence, used for == comparisons."""
         if self.phenotype != other.phenotype:
@@ -69,7 +60,6 @@ class PhenotypeDatum():
         if self.experiment != other.experiment:
             return False
         return self.timestamp == other.timestamp
-        
 
     def __lt__(self, other):
         """ordering of elements, used for sorting."""
@@ -80,6 +70,6 @@ class PhenotypeDatum():
             return self.phenotype < other.phenotype
         return self.experiment < other.experiment
 
-    
     def __repr__(self):
         return self.__str__()
+

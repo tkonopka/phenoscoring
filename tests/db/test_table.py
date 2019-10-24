@@ -35,8 +35,8 @@ class DBTableTests(unittest.TestCase):
         
         class DBTableNoName(DBTable):
             """An example subclass of DBTable that is not valid."""                
-            textfields = ["key"]
-            realfields = ["value"]
+            text_fields = ["key"]
+            real_fields = ["value"]
    
         with self.assertRaises(Exception) as e:
             instance = DBTableNoName(dbfile)
@@ -47,7 +47,7 @@ class DBTableTests(unittest.TestCase):
         
         class DBTableNoFields(DBTable):
             """An example subclass of DBTable that is not valid."""                
-            tabname = "bad_table"
+            name = "bad_table"
    
         with self.assertRaises(Exception) as e:
             instance = DBTableNoFields(dbfile)

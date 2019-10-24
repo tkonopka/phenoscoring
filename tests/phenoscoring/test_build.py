@@ -1,6 +1,6 @@
-'''
+"""
 Tests for creating database structure and populating data on references.
-'''
+"""
 
 import unittest
 from os.path import abspath, join

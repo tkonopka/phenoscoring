@@ -23,27 +23,33 @@ class ComparisonCodes(Enum):
         return str(self.value)
 
 
-def comparison_code(modelval, refval, bg):
-    """convert a set of variables into ComparisonCodes codes."""
+def comparison_code(model_val, ref_val, bg):
+    """convert a set of values into ComparisonCodes codes
 
-    if modelval > bg:
-        if refval > bg:
+    :param model_val: number, value in a model
+    :param ref_val: number, value associated with a reference
+    :param bg: number, background value
+    :return: Enum object
+    """
+
+    if model_val > bg:
+        if ref_val > bg:
             result = ComparisonCodes.TP
-        elif refval < bg:
+        elif ref_val < bg:
             result = ComparisonCodes.FP
         else:
             result = ComparisonCodes.AP
-    elif modelval < bg:
-        if refval > bg:
+    elif model_val < bg:
+        if ref_val > bg:
             result = ComparisonCodes.FN
-        elif refval < bg:
+        elif ref_val < bg:
             result = ComparisonCodes.TN
         else:
             result = ComparisonCodes.AN
     else:        
-        if refval > bg:
+        if ref_val > bg:
             result = ComparisonCodes.EP
-        elif refval < bg:
+        elif ref_val < bg:
             result = ComparisonCodes.EN
         else:
             result = ComparisonCodes.U

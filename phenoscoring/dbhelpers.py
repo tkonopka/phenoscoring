@@ -36,14 +36,11 @@ def get_ref_names(dbpath):
 
 def get_ref_priors(dbpath, references=None):
     """Create a dict with prior probabilities for references
-    
-    Args:
-        dbpath      path to db
-        references  set with reference names to include
-                    (or None to get the entire table)
-    
-    Returns:
-        dictionary mapping references to prior probabilities
+
+    :param dbpath: path to db
+    :param references: set with reference names to include
+        (or None to get the entire table)
+    :return: dictionary mapping references to prior probabilities
     """
                         
     generator = DBGenerator(ReferencePriorsTable(dbpath))    
@@ -84,20 +81,17 @@ def get_complete_null(dbpath):
      
 
 def get_refsets(dbpath, ref_priors=None, phenotype_priors=None):
-    """Create ReferenceSets objects with general and specific phenotypes 
-    
-    Arguments:
-        dbpath            path to phenoscoring db
-        ref_priors        dictionary with priors for references
-                          (if None, fetched from db)
-        phenotype_priors  dictionary with priors for all featurs
-                          (if None, fetched from db)
+    """create ReferenceSets objects with general and specific phenotypes
 
-    Returns:
-        two ReferenceSets objects    
+    :param dbpath: path to phenoscoring db
+    :param ref_priors: dictionary with priors for references
+        (if None, fetched from db)
+    :param phenotype_priors: dictionary with priors for all featurs
+        (if None, fetched from db)
+    :return: two ReferenceSets objects
     """
     
-    ## at first create just a dictionary of representations
+    # at first create just a dictionary of representations
     general_dict, specific_dict = dict(), dict()    
     
     if phenotype_priors is None:
@@ -105,14 +99,14 @@ def get_refsets(dbpath, ref_priors=None, phenotype_priors=None):
     if ref_priors is None:
         ref_priors = get_ref_priors(dbpath)
     
-    ## create empty Representations for each reference    
+    # create empty Representations for each reference
     nullrep = get_complete_null(dbpath)
     phenotypes = nullrep.keys()
     for id in ref_priors.keys():
         general_dict[id] = nullrep.copy(name=id)
         specific_dict[id] = nullrep.copy(name=id)
     
-    ## fill the representations with values
+    # fill the representations with values
     phentab = ReferenceCompletePhenotypeTable(dbpath)
     if len(ref_priors) == 1:
         refname = list(ref_priors.keys())[0]
@@ -138,4 +132,4 @@ def get_refsets(dbpath, ref_priors=None, phenotype_priors=None):
 def get_rootpath(dbpath):
     """get a string with a path+prefix from a sqlite filepath."""    
     return dbpath[:-7]
-    
+

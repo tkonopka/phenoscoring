@@ -1,5 +1,5 @@
 """
-Generator over a db table to output data into a csv file
+Transfering content of a db table into a csv file
 """
 
 from .db import get_conn
@@ -16,14 +16,13 @@ class DBExporter:
             raise Exception("table must be of class DBTable")
         
         self.table = table
-    
-    
+
     def to_tsv(self, filename):
         """Retrieve data and write to an output file.""" 
         
         fieldnames = list(self.table.fieldnames())
         sql_fields = ", ".join(fieldnames)
-        sql = "SELECT " + sql_fields  + " FROM " + self.table.tabname
+        sql = "SELECT " + sql_fields + " FROM " + self.table.name
         
         with get_conn(self.table.dbfile) as conn, open(filename, "w") as f:
             f.writelines("\t".join(fieldnames)+"\n")
@@ -31,5 +30,5 @@ class DBExporter:
             cur.execute(sql)
             for row in cur:
                 temp = [str(row[_]) for _ in fieldnames]
-                f.writelines("\t".join(temp)+"\n")
+                f.writelines("\t".join(temp) + "\n")
 

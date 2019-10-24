@@ -13,19 +13,13 @@ from .phenotypedatum import PhenotypeDatum
 from .entity import Entity
 
 
-# ###########################################################################
-# Helpers to parse model data from files/db into memory objects
-
 def make_model(row, stamp=None):
     """create one model entity using a dict-like structure
-    
-    Arguments:
-        row    a dict-like object with components marker_id, etc.
-        stamp  timestamp, must be provided in the function call or        
-               be available in the input object.
-               
-    Returns:
-        an Entity object with a model definition
+
+    :param row: dict-like object with components marker_id, etc.
+    :param stamp: timestamp, must be provided in the function call or
+        be available in the input object.
+    :return: Entity object with a model definition
     """
     
     id = row["id"]
@@ -39,8 +33,8 @@ def make_model(row, stamp=None):
 def get_db_models(dbpath):
     """get descriptions of all models currently in database.
     
-    Returns:
-        dict with Entities carrying model descriptions
+    :param dbpath: string, path to database file
+    :return: dict with Entities carrying model descriptions
         All entities are without phenotypes!
     """
                         
@@ -83,9 +77,6 @@ def get_file_phenotypes(filepath, timestamp):
     return result
 
 
-# ###########################################################################
-# Helpers for book-keeping on models
-
 def insert_descriptions(dbpath, entities):
     """add model descriptions into the db."""
     
@@ -99,13 +90,10 @@ def insert_descriptions(dbpath, entities):
 
 def new_entities(current, proposed):
     """compare a current set of entities with a proposed set.
-    
-    Arguments:
-        current    dict with Entity objects
-        proposed    dict with Entity objects
-    
-    Returns:
-        a subset of proposed that are not in current.
+
+    :param current: dict with Entity objects
+    :parma proposed: dict with Entity objects
+    :return: subset of proposed that are not in current.
     """
     
     result = dict()
@@ -131,13 +119,10 @@ def change_descriptions(dbpath, entities):
 
 def changed_entities(current, proposed):
     """compare a current set of entities with a proposed set.
-    
-    Arguments:
-        current     dict with Entity objects
-        proposed    dict with Entity objects
-    
-    Returns:
-        a subset of proposed that are present in current, but their 
+
+    :param current: dict with Entity objects
+    :param proposed: dict with Entity objects
+    :return: subset of proposed that are present in current, but their
         content is different.
     """
     
@@ -147,7 +132,6 @@ def changed_entities(current, proposed):
             continue
         if not current[key].equivalent(proposed[key]):
             result[key] = proposed[key]
-    
     return result
 
 

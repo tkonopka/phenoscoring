@@ -1,6 +1,6 @@
-'''
+"""
 Tests for contents of phenoscoring/phenotypedatum.py
-'''
+"""
 
 import unittest
 from datetime import datetime
@@ -83,4 +83,4 @@ class PhenotypeDatumTests(unittest.TestCase):
         d2 = PhenotypeDatum("MP:1", e1, "2018")
         self.assertTrue(d1<d2)
         self.assertTrue(d2>d1)
-    
+

@@ -1,10 +1,11 @@
-'''
+"""
 Tests for contents of scoring/comparisoncodes.py
-'''
+"""
 
 import unittest
 from scoring.comparisoncodes import ComparisonCodes
 from scoring.comparisoncodes import comparison_code
+
 
 class ComparisonCodesTests(unittest.TestCase):
     """Test codes for TP, FP, etc.."""
@@ -12,17 +13,17 @@ class ComparisonCodesTests(unittest.TestCase):
     def test_str(self):
         """rounding for tpr/fpr values."""
                 
-        # some traditional codes for true positives, etc
-        code_TP = ComparisonCodes.TP
-        self.assertEqual(str(code_TP), "TP")
-        code_FP = ComparisonCodes.FP
-        self.assertEqual(str(code_FP), "FP")
+        # traditional codes for true positives, etc
+        code_tp = ComparisonCodes.TP
+        self.assertEqual(str(code_tp), "TP")
+        code_fp = ComparisonCodes.FP
+        self.assertEqual(str(code_fp), "FP")
         
-        # some additional codes
-        code_EP = ComparisonCodes.EP
-        self.assertEqual(str(code_EP), "EP")
-        code_AN = ComparisonCodes.AN
-        self.assertEqual(str(code_AN), "AN")
+        # Additional codes
+        code_ep = ComparisonCodes.EP
+        self.assertEqual(str(code_ep), "EP")
+        code_an = ComparisonCodes.AN
+        self.assertEqual(str(code_an), "AN")
         
     def test_get_code_TP(self):
         """both model and ref are above background."""        

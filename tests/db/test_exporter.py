@@ -1,5 +1,7 @@
 '''
-Tests for contents of db/db.py, db/dbtable.py
+Tests for contents of db/exporter.py
+
+Transfering data from a phenoscoring db into text files
 '''
 
 
@@ -20,7 +22,7 @@ class DBExporterTests(unittest.TestCase):
     """Test cases for exporting data from a db."""
        
     def setUp(self):
-        """For setup, create and fill db with a small amount of data."""
+        """create and fill db with a small amount of data."""
         
         setup_db(dbfile, tables=[DBTableExample])
         self.kvtab = DBTableExample(dbfile)        
@@ -40,7 +42,7 @@ class DBExporterTests(unittest.TestCase):
         """generator constructor fails with wrong input."""
                 
         with self.assertRaises(Exception) as e:            
-            reader = DBExporter(5)
+            DBExporter(5)
 
     def test_write(self):
         """generator can write to an output file."""
@@ -50,7 +52,6 @@ class DBExporterTests(unittest.TestCase):
                 
         with open(outfile, "r") as f:
             output = f.readlines()
-        
         self.assertEqual(len(output), 5, "four rows plus header")
         self.assertEqual(output[0], "key\tvalue\n", "header with 2 cols")  
         self.assertEqual(output[1][:3], "one", "first row")

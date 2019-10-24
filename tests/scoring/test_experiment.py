@@ -1,7 +1,6 @@
-'''
+"""
 Tests for contents of scoring/representation.py
-'''
-
+"""
 
 import unittest
 from scoring.experiment import Experiment
@@ -45,7 +44,6 @@ class ExperimentTests(unittest.TestCase):
         """positive experiment increases confidence."""  
                 
         pe = PositiveExperiment(tpr=0.8, fpr=0.2)
-        ne = NegativeExperiment(tpr=0.8, fpr=0.2)
         # all updates will make new p in range [0, 1]
         for x in [0.01, 0.05, 0.1, 0.2, 0.6, 0.8, 0.99]:                        
             self.assertGreater(pe.update(x), 0)
@@ -84,6 +82,6 @@ class ExperimentTests(unittest.TestCase):
         """string rep."""
         
         ee = PositiveExperiment(tpr=0.5, fpr=0.1)
-        eestr = "Experiment(1, 0.5, 0.1)"
-        self.assertEqual(str(ee), eestr)
+        ee_str = "Experiment(1, 0.5, 0.1)"
+        self.assertEqual(str(ee), ee_str)
 

@@ -1,6 +1,6 @@
-'''
+"""
 Tests for contents of scoring/representation.py
-'''
+"""
 
 
 import os.path
@@ -119,7 +119,7 @@ class RepresentationTests(unittest.TestCase):
     def test_general_representation_get2(self):
         """setting and getting from a generic representation."""  
         
-        ## Similar to previous, but setting defaults before the specifics        
+        # Similar to previous, but setting defaults before the specifics
         rr = Representation(dict(abc=0.1, xyz=0.2))
         rr.defaults(self.defaults)
         rr.set("bob", 0.4)
@@ -166,7 +166,7 @@ class RepresentationTests(unittest.TestCase):
                            "ancestors should receive greater score")
         self.assertEqual(rr.get("DOID:655"), 0.2, 
                          "unrelated should stay at default")
-        ## ancestor that has already a higher score than what is propagated
+        # ancestor that has already a higher score than what is propagated
         self.assertGreater(rr.get("DOID:0014667"), 0.5, 
                            "ancestor should receive score greater than its prior")
     
@@ -174,9 +174,9 @@ class RepresentationTests(unittest.TestCase):
         """updating values in representation via positive evidence in DAG"""  
                 
         rr = Representation(dict())
-        ## DOID:11044 in test ontology has two paths to root (DOID:4)
-        ## one is direct (a shortcut)
-        ## another path is through 0080015
+        # DOID:11044 in test ontology has two paths to root (DOID:4)
+        # one is direct (a shortcut)
+        # another path is through 0080015
         rr.set("DOID:11044", 0.4)        
         rr.impute(self.obo, self.obodef)                
         
@@ -210,7 +210,7 @@ class RepresentationTests(unittest.TestCase):
         r1.set("DOID:3650", 0.01).set("DOID:0014667", 0.05)        
         r2 = Representation(dict())
         r2.set("DOID:3650", 0.01).set("DOID:0014667", 0.05)
-        ## imputation down should not depend on order of the seeds
+        # imputation down should not depend on order of the seeds
         r1.impute(self.obo, self.obodef, seeds=["DOID:3650", "DOID:0014667"])
         r2.impute(self.obo, self.obodef, seeds=["DOID:0014667", "DOID:3650"])        
                         
@@ -220,7 +220,7 @@ class RepresentationTests(unittest.TestCase):
         """imputing values from manually-specified seeds."""  
                 
         rr = Representation(dict())        
-        ## specify data for two children, DOID:4 is higher in tree, so should gain 
+        # specify data for two children, DOID:4 is higher in tree, so should gain
         rr.set("DOID:0014667", 0.4)
         rr.set("DOID:0080015", 0.3)
                 
@@ -250,19 +250,19 @@ class RepresentationTests(unittest.TestCase):
     def test_impute_fromseeds_auto(self):
         """imputing values from automatically-ordered seeds."""  
                 
-        ## specify an inconsistent set of values, DOID:4 is higher in tree, so cannot
-        ## have a lower value than DOID:0014667
-        ## However, low DOID:4 can impact on other branches                 
+        # specify an inconsistent set of values, DOID:4 is higher in tree, so cannot
+        # have a lower value than DOID:0014667
+        # However, low DOID:4 can impact on other branches
         rr1 = Representation(dict())
         rr1.set("DOID:0014667", 0.4).set("DOID:4", 0.1)
         rr1.impute(self.obo, self.obodef)        
         
-        ## auto seeds
+        # auto seeds
         rr2 = Representation(dict())
         rr2.set("DOID:0014667", 0.4).set("DOID:4", 0.1)
         rr2.impute(self.obo, self.obodef)
         
-        ## auto seeds, different initial ordering
+        # auto seeds, different initial ordering
         rr3 = Representation(dict())
         rr3.set("DOID:4", 0.1).set("DOID:0014667", 0.4)
         rr3.impute(self.obo, self.obodef)
@@ -294,8 +294,7 @@ class RepresentationTests(unittest.TestCase):
        
     def test_copy(self):
         """can copy a representation into a new object."""
-        
-        
+
         r1 = Representation(self.defaults, name="hello")
         r1.set("abc", 0.5)        
         result = r1.copy()

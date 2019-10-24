@@ -1,6 +1,6 @@
-'''
+"""
 Tests for contents of scoring/distance.py
-'''
+"""
 
 import numpy as np
 import unittest
@@ -23,11 +23,11 @@ class DistanceTests(unittest.TestCase):
     def test_cosine_distance(self):
         """manual implementation of distance with numba."""
 
-        xnorm = vec_norm(self.x)
-        ynorm = vec_norm(self.y)
-        self.assertGreater(xnorm, 0)
-        self.assertGreater(ynorm, 0)
-        distance = cosine_distance(self.x, self.y, xnorm, ynorm)
-        self.assertGreater(distance, 0.0)
-        self.assertLess(distance, 1)
+        x_norm = vec_norm(self.x)
+        y_norm = vec_norm(self.y)
+        self.assertGreater(x_norm, 0)
+        self.assertGreater(y_norm, 0)
+        result = cosine_distance(self.x, self.y, x_norm, y_norm)
+        self.assertGreater(result, 0.0)
+        self.assertLess(result, 1)
 

@@ -12,9 +12,8 @@ class MinimalObo:
     def __init__(self, filepath, infer_children=True):
         """Initiate by parsing an obo file
 
-         Arguments:
-             filepath        path to obo file on disk
-             infer_children  logical, precompute parent/child relations
+        :param filepath: string, path to obo file on disk
+        :param infer_children: boolean, precomputes parent/child relations
         """
 
         self.terms = parse_obo(filepath, MinimalOboTerm)
@@ -22,9 +21,8 @@ class MinimalObo:
         self.ancestors_cache = dict()
         self.descendants_cache = dict()
         self.alts_cache = dict()
-        self.clear_cache()
         if infer_children:
-            add_parent_of(self)
+            self._add_parent_of()
 
     def clear_cache(self):
         self.alts_cache = dict()
@@ -71,15 +69,15 @@ class MinimalObo:
 
         if key in self.parents_cache:
             return self.parents_cache[key]
-        result = get_by_relation(self, key, "is_a")
+        result = _get_by_relation(self, key, "is_a")
         self.parents_cache[key] = result
         return result
 
     def alts(self, key):
         """retrieve alternative ids
 
-        Returns:
-            set with alternative ids
+        :param key: identifier
+        :return: set with alternative ids
         """
 
         return set(self.terms[key].alts)
@@ -87,27 +85,27 @@ class MinimalObo:
     def ancestors(self, key):
         """retrieve ancestors (parents, parents thereof, etc) (uses cache)
 
-        Returns:
-            set with ancestors
+        :param key: identifier
+        :return: set with all ancestors
         """
 
         if key in self.ancestors_cache:
             return self.ancestors_cache[key]
-        result = get_by_relation_recursive(self, key, "is_a")
+        result = _get_by_relation_recursive(self, key, "is_a")
         self.ancestors_cache[key] = result
         return self.ancestors(key)
 
     def children(self, key):
         """Retrieve all the children of a term."""
 
-        return get_by_relation(self, key, "parent_of")
+        return _get_by_relation(self, key, "parent_of")
 
     def descendants(self, key):
         """Retrieve all children down to leaves (uses cache)"""
 
         if key in self.descendants_cache:
             return self.descendants_cache[key]
-        result = get_by_relation_recursive(self, key, "parent_of")
+        result = _get_by_relation_recursive(self, key, "parent_of")
         self.descendants_cache[key] = result
         return result
 
@@ -128,7 +126,7 @@ class MinimalObo:
     def replaced_by(self, key):
         """get a replaced id for an obsolete id"""
 
-        result = get_by_relation(self, key, "replaced_by")
+        result = _get_by_relation(self, key, "replaced_by")
         if len(result) == 0:
             return None
         return list(result)[0]
@@ -142,6 +140,13 @@ class MinimalObo:
         a2.add(key2)
         return len(a1.intersection(a2)) / len(a1.union(a2))
 
+    def _add_parent_of(self):
+        """Augment the relations to include 'parent_of'."""
+
+        for child in self.ids(True):
+            for parent in self.parents(child):
+                self.terms[parent].add_relation(child, "parent_of")
+
 
 class Obo(MinimalObo):
     """Representation of an obo ontology.
@@ -150,19 +155,16 @@ class Obo(MinimalObo):
     """
 
     def __init__(self, filepath, infer_children=True):
-        """Initiate by parsing an obo file
+        """initiate by parsing an obo file
 
-         Arguments:
-             filepath        path to obo file on disk
-             infer_children  logical, precompute parent/child relations
-             minimal         logical, to parse all obo fields (False),
-                or skip non-essentials like synonyms, defs, others (False)
+        :param filepath: string, path to obo file on disk
+        :param infer_children: boolean, precompute parent/child relations
         """
 
         self.terms = parse_obo(filepath, OboTerm)
         self.clear_cache()
         if infer_children:
-            add_parent_of(self)
+            self._add_parent_of()
 
     def name(self, key):
         """Retrieve the name associated with an id/key."""
@@ -173,10 +175,7 @@ class Obo(MinimalObo):
             return self.terms[key].name
 
 
-# ############################################################################
-# Helper functions for this module
-
-def get_by_relation(obo, key, relation):
+def _get_by_relation(obo, key, relation):
     """Identify all hits for a relation type."""
             
     if key not in obo.terms:
@@ -190,7 +189,7 @@ def get_by_relation(obo, key, relation):
     return tuple(result)            
 
 
-def get_by_relation_recursive(obo, key, relation):
+def _get_by_relation_recursive(obo, key, relation):
     """Identify all hits for a relation type, recursively
     
     Return:
@@ -202,21 +201,13 @@ def get_by_relation_recursive(obo, key, relation):
             return
         result.add(x)
         visited.add(x)                        
-        for hit in get_by_relation(obo, x, relation):
+        for hit in _get_by_relation(obo, x, relation):
             get_recursive(hit)
         
     result, visited = set(), set()    
     get_recursive(key)
     result.remove(key)
     return tuple(result)
-
-
-def add_parent_of(obo):
-    """Augment the relations in an Obo to include 'parent_of'."""
-    
-    for child in obo.ids(True):            
-        for parent in obo.parents(child):
-            obo.terms[parent].add_relation(child, "parent_of")
 
 
 def parse_obo(filename, OboTermClass=OboTerm):
@@ -258,7 +249,7 @@ def parse_obo(filename, OboTermClass=OboTerm):
     return result
 
 
-def minimal_obo(filepath, out=sys.stdout):
+def print_minimal_obo(filepath, out=sys.stdout):
     """print out a minimal version of an obo object"""
 
     obo = MinimalObo(filepath)

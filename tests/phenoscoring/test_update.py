@@ -1,8 +1,8 @@
-'''
+"""
 Tests for phenoscoring/phenoscoring.py and phenoscoring/update.py
 
 Adding and updatnig models to an existing db
-'''
+"""
 
 
 import unittest
@@ -43,7 +43,7 @@ class AddModelsTests(unittest.TestCase):
         impc = Phenoscoring(IMPCTestConfig())            
         impc.update()
         
-        ## in contrast to complete build, this db should have IMPC-only rows        
+        # in contrast to complete build, this db should have IMPC-only rows
         desctab = ModelDescriptionTable(self.dbfile)                
         self.assertEqual(desctab.count_rows(), 8)        
         modeltab = ModelPhenotypeTable(self.dbfile)        
@@ -55,7 +55,7 @@ class AddModelsTests(unittest.TestCase):
         mgi = Phenoscoring(MGITestConfig())                
         mgi.update()
         
-        ## in contrast to complete config, this db should have fewer rows
+        # in contrast to complete config, this db should have fewer rows
         desctab = ModelDescriptionTable(self.dbfile)                
         self.assertEqual(desctab.count_rows(), 6)
         modeltab = ModelPhenotypeTable(self.dbfile)        
@@ -115,7 +115,7 @@ class UpdateModelsTests(unittest.TestCase):
     def test_update_nowork(self):
         """can run build repeatedly without over-inserting"""
 
-        ## run update again, but without setting phenotypes
+        # run update again, but without setting phenotypes
         impc = Phenoscoring(IMPCTestConfig())                        
         impc.model_phenotypes = None        
         impc.update()
@@ -124,7 +124,7 @@ class UpdateModelsTests(unittest.TestCase):
         self.assertEqual(desctab.count_rows(), 8, 
                          "number of descriptions should be unchanged")
         
-        ## run again without setting anything
+        # run again without setting anything
         impc.model_descriptions = None        
         impc.update()
         self.assertEqual(desctab.count_rows(), 8, 
@@ -138,7 +138,7 @@ class UpdateModelsTests(unittest.TestCase):
                          "initial set of model descriptions")
         self.assertFalse(self.descriptions_contain("description", "UPDATED"))
         
-        ## run an update operation with only model descriptions 
+        # run an update operation with only model descriptions
         config = IMPCTestConfig()
         config.model_descriptions = "prep-IMPC-descriptions-update.tsv"
         config.model_phenotypes = None

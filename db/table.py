@@ -6,9 +6,6 @@ import os
 from .db import get_conn
 
 
-# ##################################################################
-#
-
 class DBTable:
     """
     Class designed to be subclassed.
@@ -20,28 +17,27 @@ class DBTable:
     This should make it possible to use this class with multiprocessing.     
     """
     
-    # insertN determines the number of rows that are sent at once.
+    # insertN determines the number of rows that are sent in each batch.
     # (using >1000 can give sqlite3 error due to expression tree too-large)    
     insertN = 768
 
     # name of table in db
-    tabname = ""
+    name = ""
         
     # field names for the table in an array, split by type
-    textfields = []
-    realfields = []
+    text_fields = []
+    real_fields = []
 
     def __init__(self, dbfile):
         """Set up a connection and cursor for db operations.
-        
-        Args:
-            dbfile:    filename for the database        
+
+        :param dbfile: string, filename for the database
         """
-        
+
         # perform checks that subclassing was performed correctly
-        if self.tabname == "":
+        if self.name == "":
             raise Exception("table name cannot be blank")
-        if len(self.textfields)+len(self.realfields)==0:
+        if len(self.text_fields) + len(self.real_fields) == 0:
             raise Exception("table must contain at least one column")
                         
         self.dbfile = dbfile
@@ -49,13 +45,13 @@ class DBTable:
             raise Exception("db does not exist on disk: "+str(dbfile))
                
         # record all field names (locally and in an available set)
-        allfields = self.fieldnames()
-        self.fieldset = set(allfields)
+        all_fields = self.fieldnames()
+        self.fieldset = set(all_fields)
         
         # prep insert command
-        temp = "(" + ", ".join(allfields) + ") VALUES "
-        temp += "(" + ", ".join(["?"]*len(allfields))+" )"
-        self.sqlinsert = "INSERT INTO " + self.tabname + temp
+        temp = "(" + ", ".join(all_fields) + ") VALUES "
+        temp += "(" + ", ".join(["?"]*len(all_fields)) + " )"
+        self.sqlinsert = "INSERT INTO " + self.name + temp
 
         # object cache
         self.data = []
@@ -71,7 +67,6 @@ class DBTable:
                         
         with get_conn(self.dbfile) as conn:
             c = conn.cursor()
-            # execute the insert in batches of insertN
             for x in range(0, len(self.data), self.insertN):                            
                 xdata = self.data[x:x+self.insertN]
                 c.executemany(self.sqlinsert, xdata)
@@ -85,7 +80,7 @@ class DBTable:
     def count_rows(self):
         """Count rows in table."""
                               
-        sql = "SELECT COUNT(*) FROM " + self.tabname
+        sql = "SELECT COUNT(*) FROM " + self.name
         with get_conn(self.dbfile) as conn:    
             result = conn.cursor().execute(sql).fetchone()[0]            
         return result
@@ -95,7 +90,7 @@ class DBTable:
         
         # this is an unsafe sql query
         # but I couldn't get SELECT ? FROM self.tabname to work
-        sql = "SELECT DISTINCT "+field+" FROM "+self.tabname                
+        sql = "SELECT DISTINCT "+field+" FROM "+self.name
         result = []
         with get_conn(self.dbfile) as conn:
             cur = conn.cursor()                            
@@ -108,7 +103,7 @@ class DBTable:
         """Remove all exisitng rows from table."""
         
         self.clear()
-        sql = "DELETE FROM "+self.tabname        
+        sql = "DELETE FROM "+self.name
         with get_conn(self.dbfile) as conn:
             conn.cursor().execute(sql)
 
@@ -139,7 +134,7 @@ class DBTable:
                 where_parts.append(k+"=?")                
                 xdata.append(v)
         
-        sql = "UPDATE " + self.tabname + " SET "
+        sql = "UPDATE " + self.name + " SET "
         sql += ", ".join(set_parts)
         if len(where) > 0:
             sql +=  " WHERE "
@@ -160,7 +155,7 @@ class DBTable:
         if field not in self.fieldset:
             raise Exception("invalid field name: "+field)
         
-        sql = "DELETE FROM " + self.tabname + " WHERE "        
+        sql = "DELETE FROM " + self.name + " WHERE "
               
         with get_conn(self.dbfile) as conn:
             c = conn.cursor()            
@@ -174,8 +169,8 @@ class DBTable:
         """Get a list with all field names for this table."""
         
         result = []
-        result.extend(self.textfields)
-        result.extend(self.realfields)
+        result.extend(self.text_fields)
+        result.extend(self.real_fields)
         return result    
 
     def content(self):
@@ -186,7 +181,7 @@ class DBTable:
 
         # create select statement
         comma_fields = ", ".join(allfields)
-        sql = "SELECT " + comma_fields + " FROM " + self.tabname
+        sql = "SELECT " + comma_fields + " FROM " + self.name
         
         # execute query and yield one row at a time
         with get_conn(self.dbfile) as conn:
@@ -205,9 +200,9 @@ class DBTable:
 class DBTableExample(DBTable):
     """An example subclass of DBTable."""
     
-    tabname = "example"
-    textfields = ["key"]
-    realfields = ["value"]
+    name = "example"
+    text_fields = ["key"]
+    real_fields = ["value"]
     
     def add(self, k, v):
         self.data.append([k, v])

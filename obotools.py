@@ -6,7 +6,7 @@ Usage: python3 obotools.py command --obo INFILE
 
 
 import argparse
-from obo.obo import Obo, minimal_obo
+from obo.obo import Obo, print_minimal_obo
 
 
 # ##################################################################
@@ -62,7 +62,7 @@ if __name__ == "__main__":
 
     elif config.command == "minimize":
         # write out a new obo-like file, but with minimal content
-        minimal_obo(config.obo)
+        print_minimal_obo(config.obo)
 
     elif config.command == "obsolete":
         # extract obsolete terms and their replacements

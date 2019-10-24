@@ -7,24 +7,23 @@ from .dbtables import ReferenceNeighborsTable
 from .dbhelpers import get_phenotype_priors
 
 
-class SpecificityPacket():
+class SpecificityPacket:
     
     def __init__(self, dbpath, refset, k):
-        """Create a generic packet for calculating specificity scores
-        
-        Arguments:
-            dbpath        path to phenoscoring db
-            refset        ReferenceSet object
-            k             integer, number neighbors to consider
+        """packet for calculating specificity scores
+
+        :param dbpath: path to phenoscoring db
+        :param refset: ReferenceSet object
+        :param k: integer, number neighbors to consider
         """
                 
         self.dbpath = dbpath
         self.refset = refset
         self.k = k            
-        self.refnames = set()
+        self.ref_names = set()
 
-    def add(self, refname):
-        self.refnames.add(refname)
+    def add(self, ref_name):
+        self.ref_names.add(ref_name)
 
     def run(self):
         """compute neighbors and fill in complete phenotype tables in the db
@@ -33,7 +32,7 @@ class SpecificityPacket():
         references declared using add().            
         """        
                 
-        if len(self.refnames) == 0:
+        if len(self.ref_names) == 0:
             return
                 
         phen_priors = get_phenotype_priors(self.dbpath)
@@ -51,14 +50,14 @@ class SpecificityPacket():
         model_neighbors = ReferenceNeighborsTable(self.dbpath)
         
         # by definition, add all phenotypes for the null reference
-        if "null" in self.refnames:        
+        if "null" in self.ref_names:
             for phenotype in nulldata.keys():
                 null_val = nulldata[phenotype]
                 prior_val = phen_priors[phenotype]                
                 model_phenotypes.add("null", phenotype, null_val, prior_val)            
         
         # process declared references
-        for refname in self.refnames:        
+        for refname in self.ref_names:
             # skip the null rep (handled outside) 
             if refname == "null":
                 continue                            

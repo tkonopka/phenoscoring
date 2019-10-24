@@ -1,8 +1,8 @@
-'''
+"""
 Tests for phenoscoring/phenoscoring.py with action export
 
 Writing content of db tables to tsv files
-'''
+"""
 
 import unittest
 from os.path import exists
