@@ -48,7 +48,7 @@ def get_colnames(TableClass, exclude):
     return result
 
 
-def write_model_phenotypes(models, outfile, exclude=["id", "timestamp"]):
+def write_model_phenotypes(models, outfile, exclude=["id"]):
     """write a table with phenotypes
     
     Arguments:

@@ -66,7 +66,8 @@ class Entity():
         parts = self._split_phenotypes()
         result = []
         for phenotype in parts.keys():            
-            data = [_.experiment for _ in parts[phenotype]]            
+            data = [_.experiment for _ in parts[phenotype]]
+            stamps = [_.timestamp for _ in parts[phenotype]]            
             num0 = sum([_.value == 0 for _ in data])
             numP = sum([ 0 < _.value < 1 for _ in data])
             num1 = sum([_.value == 1 for _ in data])
@@ -81,7 +82,9 @@ class Entity():
             tpr = mean([_.tpr for _ in data])
             fpr = mean([_.fpr for _ in data])
             tpr = max(fpr, tpr*float(num_majority)/(num0+numP+num1))
-            datum = PhenotypeDatum(phenotype, Experiment(majority, tpr, fpr))
+            datum = PhenotypeDatum(phenotype, 
+                                   Experiment(majority, tpr, fpr), 
+                                   stamps[0])
             result.append(datum)
         
         self.data = result

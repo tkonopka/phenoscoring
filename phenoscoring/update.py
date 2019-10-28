@@ -69,7 +69,10 @@ def get_file_phenotypes(filepath, timestamp):
         reader = csv.DictReader(f, delimiter="\t", quotechar="'")
         for row in reader:
             experiment = Experiment(row["value"], row["TPR"], row["FPR"])
-            datum = PhenotypeDatum(row["phenotype"], experiment, timestamp)
+            stamp = timestamp
+            if "timestamp" in row:
+                stamp = row["timestamp"]
+            datum = PhenotypeDatum(row["phenotype"], experiment, stamp)
             id = row["id"]
             if id not in result:
                 result[id] = []
