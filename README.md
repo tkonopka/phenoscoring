@@ -23,13 +23,13 @@ Some third party packages are also required. These can be installed using the `p
 pip install jsonpickle numpy numba
 ```
 
-After ensuring you have the right version of python and the required packages, you can obtain the software by cloning it from the source repo. 
+The software can be installed by cloning from the source repo. 
 
 ```
 git clone https://www.github.com/tkonopka/Phenoscoring
 ```
 
-No further installation procedures are required. However, running the software successfully does require the assembly of a number of required data files, explained in the documentation below.
+No further installation procedures are required. However, running the software successfully does require the assembly of a number of required data files, described below and the linked documentation pages.
 
 
 
@@ -51,8 +51,8 @@ The repo also contains other executables. These are auxiliary scripts that can b
 
 ## Applications
 
-Algorithms and applications are described in a manuscript
+Algorithms and applications are described in a manuscript.
 
-> *Incremental data integration for tracking genotype-disease associations.* Submitted (Journal link, biorxiv link).
+> Konopka T, Smedley D. *Incremental data integration for tracking genotype-disease associations.* [PLOS Comp Bio](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007586).
 
 
