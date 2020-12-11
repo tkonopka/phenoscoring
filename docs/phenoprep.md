@@ -98,7 +98,7 @@ python phenoprep.py MGI
                     --input MGI_GenePheno_wheader.rpt \
                     --tpr 0.8 --fpr 0.05 \
                     --obo mp.obo \
-                    --priors markers \
+                    --priors marker \
                     --output phenoprep-MGI
 ```
 
