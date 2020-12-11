@@ -23,20 +23,21 @@ from .build import fill_phenotype_frequency_table
 from .update import update_model_descriptions, add_model_phenotypes
 from .time import now_timestamp
 from .compute import prep_compute_packets
-from .dbhelpers import get_refsets, get_model_names, get_ref_names
+from .dbhelpers import get_ref_names, get_refsets
+from .dbhelpers import get_model_names, get_modelsets
 from .dbhelpers import delete_model_scores, delete_models
 from .simplelogger import SimpleLogger
 from .runner import run_packets
 
 
-class Phenoscoring():
+class Phenoscoring:
     """class that provides access to phenoscoring pipeline components.
     
     The constructor and functions starting with letters are meant to be
     called from outside scripts.
     
     Functions starting with an underscore are meant as internal components
-    only.    
+    only.
     """
     
     # tables created in the db
@@ -63,7 +64,7 @@ class Phenoscoring():
     def _start(self):
         """Run this to initiate an analysis."""
         
-        self.logger.msg1("Starting Phenoscoring - "+ self.config.action)
+        self.logger.msg1("Starting Phenoscoring - " + self.config.action)
         return self.dbpath, self.config
 
     def _end(self):
@@ -281,18 +282,31 @@ class Phenoscoring():
             temp = [str(row[_]) for _ in fieldnames]
             out.write("\t".join(temp) + "\n")    
     
-    def export_representations(self):
+    def _export_reference_representations(self):
         """write matrix representations for models and refs to disk."""
-        
-        dbpath, config = self._start()      
-        
-        self.logger.msg1("Loading ontology")
-        obopath = check_file(config.obo, dbpath, "obo")        
-        self.obo = MinimalObo(obopath, True)
-        
+
         self.logger.msg1("Saving reference representations")
         general_refset, _ = get_refsets(self.dbpath)
         general_refset.save(self.rootpath+"-references", "phenotype")        
-                
-        self._end()
 
+    def _export_model_representations(self, config):
+        """write matrix representations for models and refs to disk."""
+
+        self.logger.msg1("Preparing model representations")
+        modelsets = get_modelsets(self.dbpath, self.obo, config.partition_size)
+        prefix = self.rootpath + "-models-"
+        for i, refset in enumerate(modelsets):
+            progress = str(i+1) + "/" + str(len(modelsets))
+            self.logger.msg1("Saving model representations: "+progress)
+            refset.save(prefix + str(i+1), "phenotype", what=("data",))
+
+    def export_representations(self):
+        """write matrix representations for models and refs to disk"""
+
+        dbpath, config = self._start()
+        self.logger.msg1("Loading ontology")
+        obo_path = check_file(config.obo, dbpath, "obo")
+        self.obo = MinimalObo(obo_path, True)
+        self._export_reference_representations()
+        self._export_model_representations(config)
+        self._end()

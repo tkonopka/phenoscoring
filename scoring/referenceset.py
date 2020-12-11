@@ -15,7 +15,7 @@ from .write import write_refset
 from collections import Counter
 
 
-class ReferenceSet():    
+class ReferenceSet:
     """Data frame and auxiliary information/functions."""
 
     def __init__(self, priors, ids, row_priors=None):
@@ -332,10 +332,15 @@ class ReferenceSet():
             
         return result
 
-    def save(self, fileprefix, first_colname=""):
-        """Dump contents of this array to a set of files."""
-                
-        write_refset(self, fileprefix, first_colname=first_colname)
+    def save(self, file_prefix, first_colname="", **kwargs):
+        """write contents of this array to a set of files
+
+        :param file_prefix: path prefix for output files
+        :param first_colname: string, name of first column in data matrix
+        :param kwargs: arguments passed to write_refset, e.g. first_column
+        """
+
+        write_refset(self, file_prefix, first_colname=first_colname, **kwargs)
 
     def __str__(self):
         """Provide a description of some of the data in the reference set."""

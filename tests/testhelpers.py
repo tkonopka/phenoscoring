@@ -31,10 +31,12 @@ def remove_dbaux(dbpath):
     prefix = dbpath[:-7]
     remove_if_exists(prefix+"-references_column_priors.json")
     remove_if_exists(prefix+"-references_row_priors.json")
-    remove_if_exists(prefix+"-references_data.tsv") 
     remove_if_exists(prefix+"-references_pairwise_excess.tsv.gz")
     remove_if_exists(prefix+"-references_data.tsv.gz")
-    remove_if_exists(prefix+"-references_hitcounts.tsv.gz")    
+    remove_if_exists(prefix+"-references_hitcounts.tsv.gz")
+    remove_if_exists(prefix+"-models-0_data.tsv.gz")
+    remove_if_exists(prefix+"-models-1_data.tsv.gz")
+    remove_if_exists(prefix+"-models-2_data.tsv.gz")
     remove_if_exists(prefix+"-models_column_priors.json")
     remove_if_exists(prefix+"-models_row_priors.json")
     remove_if_exists(prefix+"-models_data.tsv.gz")
@@ -66,7 +68,6 @@ class CompleteTestConfig(PhenoscoringConfig):
     fp_penalty = 0.25
     modelp = 0.01    
     obo = "Y.obo"
-    #null_prior = 0.99
     prior = 0.01
     min_inference = 0.001
     min_enrichment = 100

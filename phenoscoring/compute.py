@@ -3,17 +3,14 @@ Class for computing phenosocing scores with the Phenoscoring system.
 """
 
 from math import ceil, floor
-from db.generator import DBGenerator
 from obo.obo import MinimalObo
-from scoring.evidence import evidence_update
 from scoring.representation import Representation
-from .dbhelpers import get_refsets
+from .dbhelpers import get_refsets, get_model_representations
 from .dbhelpers import get_ref_priors, get_phenotype_priors 
-from .dbtables import ModelPhenotypeTable
 from .dbtables import ModelScoreTable
 
 
-class PhenocomputePacket():
+class PhenocomputePacket:
     """A runnable object for phenoscoring calculation
     
     On init, this requires minimal information about what scores to compute.
@@ -46,36 +43,17 @@ class PhenocomputePacket():
         # setup calculation with references and stub models
         self.references = set(references)
         for id in models:
-            self.models[id] = Representation(name=id)      
-
-    def _add_data(self, modelid, phenotype, value, tpr, fpr):
-        """augment model representation with a phenotype and value.
-        
-        Uses a bayesian-like update to incorporate evidence on a phenotype
-        into a best estimate probability.  
-        """                
-        
-        prior = self.phen_priors[phenotype]
-        if value < prior:            
-            tpr, fpr = 1-tpr, 1-fpr
-               
-        model = self.models[modelid]        
-        p = prior if not model.has(phenotype) else model.get(phenotype) 
-        model.set(phenotype, evidence_update(p, [tpr], [fpr]))
+            self.models[id] = Representation(name=id)
 
     def prep(self):
         """loads initial data from the db."""
         
         config = self.config
         dbpath = config.db
-                
         # load the ontology
         obo = MinimalObo(config.obo)
-        
-        # prepare information about phenotype priors
-        self.phen_priors = get_phenotype_priors(dbpath)
-        
         # prepare information about references
+        self.phen_priors = get_phenotype_priors(dbpath)
         self.ref_priors = get_ref_priors(dbpath, self.references)        
         general, specific = get_refsets(dbpath, ref_priors=self.ref_priors)
         # assign an ontology for reasoning        
@@ -83,24 +61,12 @@ class PhenocomputePacket():
         general.learn_obo(obo)
         self.general_refset = general
         self.specific_refset = specific
-        
         # transfer model phenotypes
-        generator = DBGenerator(ModelPhenotypeTable(dbpath))    
-        for row in generator.next():
-            modelid, phenotype = row["id"], obo.canonical(row["phenotype"])            
-            # avoid cases  - irrelevant model, obsolete phenotype
-            if modelid not in self.models:
-                continue                        
-            if obo.has(phenotype) and not obo.valid(phenotype):
-                phenotype = obo.replaced_by(phenotype)
-            if phenotype is None:
-                if self.log is not None:
-                    msg = "Skipping phenotype " + row["phenotype"]
-                    msg += " in model "+modelid
-                    self.log(self.run_msg + " - " + msg)
-                continue
-            self._add_data(modelid, phenotype, 
-                           row["value"], row["TPR"], row["FPR"])
+        model_names = list(self.models.keys())
+        self.models = get_model_representations(dbpath, obo,
+                                                log=self.log,
+                                                log_prefix=self.run_msg,
+                                                model_names=model_names)
 
     def _clear(self):
         """clears some objects to release memeory"""
@@ -123,12 +89,11 @@ class PhenocomputePacket():
         penalty = self.config.fp_penalty
         
         general, specific = dict(), dict()
-                
         for id in self.models:
             model = self.models[id]
             general[id] = g_refset.inference(model, fp_penalty=penalty)
             specific[id] = s_refset.inference(model, fp_penalty=penalty)
-                
+
         return general, specific  
 
     def run(self):

@@ -73,9 +73,12 @@ class ExportTests(unittest.TestCase):
         
         self.pipeline.export_representations()
         ref_prefix = self.pipeline.rootpath+"-references"
-        
+        model_prefix = self.pipeline.rootpath+"-models"
+
         # check files summarizing references
         self.assertTrue(exists(ref_prefix+"_data.tsv.gz"))
         self.assertTrue(exists(ref_prefix+"_column_priors.json"))
         self.assertTrue(exists(ref_prefix+"_row_priors.json"))
+        self.assertTrue(exists(model_prefix+"-1_data.tsv.gz"))
+        self.assertTrue(exists(model_prefix+"-2_data.tsv.gz"))
 
